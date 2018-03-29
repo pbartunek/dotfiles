@@ -1,0 +1,25 @@
+
+
+
+firefox() {
+  docker rm firefox
+
+  docker run -d \
+    --user browser:browser \
+    --memory 1gb \
+    --net host \
+    --cpuset-cpus 0 \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v "${HOME}/containers/firefox/.cache:/home/browser/.cache" \
+    -v "${HOME}/containers/firefox/.mozilla:/home/browser/.mozilla" \
+    -v "${HOME}/Downloads:/home/browser/Downloads" \
+    -e "DISPLAY=unix${DISPLAY}" \
+    -e GDK_SCALE \
+    -e GDK_DPI_SCALE \
+    --device /dev/snd \
+    --device /dev/dri \
+    --name firefox \
+    firefox "$@"
+}
+
