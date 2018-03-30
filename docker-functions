@@ -1,8 +1,6 @@
 
-
-
 firefox() {
-  docker rm firefox
+  delete_stopped firefox
 
   docker run -d \
     --user browser:browser \
@@ -23,3 +21,12 @@ firefox() {
     firefox "$@"
 }
 
+delete_stopped() {
+  local container=$1
+  local state="false"
+
+  state=$(docker inspect -f "{{.State.Running}}" "$container" 2> /dev/null)
+  if [[ "$state" == "false" ]]; then
+    docker rm $container
+  fi
+}
