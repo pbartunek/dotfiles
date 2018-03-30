@@ -1,5 +1,21 @@
 
+chrome() {
+  docker rm chrome
 
+  docker run -d \
+    --cpuset-cpus 0 \
+    --memory 1gb \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e DISPLAY=unix$DISPLAY \
+    -v $HOME/Downloads:/home/chrome/Downloads \
+    -v $HOME/containers/chrome/.config/google-chrome/:/data \
+    --security-opt seccomp=$HOME/containers/chrome/chrome.json \
+    --device /dev/snd \
+    --device /dev/dri \
+    -v /dev/shm:/dev/shm \
+    --name chrome \
+    chrome
+}
 
 firefox() {
   docker rm firefox
@@ -21,5 +37,14 @@ firefox() {
     --device /dev/dri \
     --name firefox \
     firefox "$@"
+}
+
+kali() {
+  docker rm kali
+
+  docker run -d \
+    --net host \
+    -h kali \
+    kali
 }
 
