@@ -1,4 +1,16 @@
 
+burp() {
+  delete_stopped burp
+
+  docker run -d \
+    --cpuset-cpus 0 \
+    --memory 2gb \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e DISPLAY=unix$DISPLAY \
+    --name burp \
+    burp
+}
+
 chrome() {
   delete_stopped chrome
 
