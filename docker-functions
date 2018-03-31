@@ -22,6 +22,7 @@ webpt() {
     -e DISPLAY=unix$DISPLAY \
     --user $UID \
     --name "burp-${project}" \
+    -h "burp-${project}" \
     burp
 
   # get burp container IP address
@@ -49,6 +50,7 @@ webpt() {
     --device /dev/dri \
     -v /dev/shm:/dev/shm \
     --name "chrome-${project}" \
+    -h "chrome-${project}" \
     chrome \
     --proxy-server="http://${burp_ip}:8080"
 }
@@ -62,7 +64,8 @@ burp() {
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e DISPLAY=unix$DISPLAY \
     --name burp \
-    burp
+    -h burp \
+    burp &> /dev/null
 }
 
 chrome() {
@@ -80,7 +83,8 @@ chrome() {
     --device /dev/dri \
     -v /dev/shm:/dev/shm \
     --name chrome \
-    chrome
+    -h chrome \
+    chrome &> /dev/null
 }
 
 firefox() {
@@ -102,7 +106,8 @@ firefox() {
     --device /dev/snd \
     --device /dev/dri \
     --name firefox \
-    firefox "$@"
+    -h firefox \
+    firefox "$@" &> /dev/null
 }
 
 kali() {
@@ -111,7 +116,7 @@ kali() {
   docker run -d \
     --net host \
     -h kali \
-    kali
+    kali &> /dev/null
 }
 
 # Helper functions
