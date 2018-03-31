@@ -1,4 +1,58 @@
 
+webpt() {
+  local project=$1
+  local project_dir="${HOME}/work/${project}"
+  local burp_ip
+
+  if [[ "$project" == "" ]]; then
+    echo "You need to specify project name!";
+    echo "Usage: webpt project_name";
+    return
+  fi 
+
+  mkdir -p $project_dir
+
+  # run burp
+  delete_stopped "burp-${project}"
+
+  docker run -d \
+    --cpuset-cpus 0 \
+    --memory 2gb \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e DISPLAY=unix$DISPLAY \
+    --user $UID \
+    --name "burp-${project}" \
+    burp
+
+  # get burp container IP address
+  burp_ip=$(docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' "burp-${project}")
+  echo "Burp container IP: ${burp_ip}"
+
+  # start chrome
+  delete_stopped "chrome-${project}"
+
+  # copy preferences
+  if [[ ! -d "${project_dir}/chrome/.config/google-chrome/Default" ]]; then
+    mkdir -p "${project_dir}/chrome/.config/google-chrome/Default";
+    cp $HOME/containers/chrome/Preferences "${project_dir}/chrome/.config/google-chrome/Default/";
+  fi
+
+  # start chrome with proxy enabled
+  docker run -d \
+    --cpuset-cpus 0 \
+    --memory 1gb \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -e DISPLAY=unix$DISPLAY \
+    -v $project_dir/chrome/.config:/home/chrome/.config \
+    -v $HOME/Downloads:/home/chrome/Downloads \
+    --security-opt seccomp=$HOME/containers/chrome/chrome.json \
+    --device /dev/dri \
+    -v /dev/shm:/dev/shm \
+    --name "chrome-${project}" \
+    chrome \
+    --proxy-server="http://${burp_ip}:8080"
+}
+
 burp() {
   delete_stopped burp
 
@@ -20,7 +74,7 @@ chrome() {
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e DISPLAY=unix$DISPLAY \
     -v $HOME/Downloads:/home/chrome/Downloads \
-    -v $HOME/containers/chrome/.config/google-chrome/:/data \
+    -v $HOME/containers/chrome/.config:/home/chrome/.config \
     --security-opt seccomp=$HOME/containers/chrome/chrome.json \
     --device /dev/snd \
     --device /dev/dri \
