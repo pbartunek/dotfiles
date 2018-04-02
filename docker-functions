@@ -56,6 +56,20 @@ webpt() {
 }
 
 burp() {
+  delete_stopped burppro
+
+  docker run -d \
+    --cpuset-cpus 0 \
+    --memory 2gb \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v $HOME/containers/burp/:/data/projects \
+    -e DISPLAY=unix$DISPLAY \
+    --name burp \
+    -h burp \
+    burppro &> /dev/null
+}
+
+burpfree() {
   delete_stopped burp
 
   docker run -d \
