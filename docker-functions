@@ -19,11 +19,12 @@ webpt() {
     --cpuset-cpus 0 \
     --memory 2gb \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v $project_dir:/data/projects \
     -e DISPLAY=unix$DISPLAY \
-    --user $UID \
     --name "burp-${project}" \
     -h "burp-${project}" \
-    burp
+    burppro \
+    --project-file=/data/projects/${project}.burp
 
   # get burp container IP address
   burp_ip=$(docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' "burp-${project}")
@@ -39,12 +40,12 @@ webpt() {
   fi
 
   # start chrome with proxy enabled
-  docker run -d \
+  docker run -ti \
     --cpuset-cpus 0 \
     --memory 1gb \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -e DISPLAY=unix$DISPLAY \
-    -v $project_dir/chrome/.config:/home/chrome/.config \
+    -v $project_dir/.config:/home/chrome/.config \
     -v $HOME/Downloads:/home/chrome/Downloads \
     --security-opt seccomp=$HOME/containers/chrome/chrome.json \
     --device /dev/dri \
