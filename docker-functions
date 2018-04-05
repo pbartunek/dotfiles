@@ -1,5 +1,6 @@
+# set syntax=bash
 
-webpt() {
+webtest() {
   local project=$1
   local project_dir="${HOME}/work/${project}"
   local burp_ip
@@ -9,51 +10,24 @@ webpt() {
     echo "Usage: webpt project_name";
     return
   fi 
-
   mkdir -p $project_dir
 
-  # run burp
-  delete_stopped "burp-${project}"
+  delete_stopped "webtest-${project}"
 
-  docker run -d \
-    --cpuset-cpus 0 \
-    --memory 2gb \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v $project_dir:/data/projects \
-    -e DISPLAY=unix$DISPLAY \
-    --name "burp-${project}" \
-    -h "burp-${project}" \
-    burppro \
-    --project-file=/data/projects/${project}.burp
-
-  # get burp container IP address
-  burp_ip=$(docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' "burp-${project}")
-  echo "Burp container IP: ${burp_ip}"
-
-  # start chrome
-  delete_stopped "chrome-${project}"
-
-  # copy preferences
-  if [[ ! -d "${project_dir}/chrome/.config/google-chrome/Default" ]]; then
-    mkdir -p "${project_dir}/chrome/.config/google-chrome/Default";
-    cp $HOME/containers/chrome/Preferences "${project_dir}/chrome/.config/google-chrome/Default/";
-  fi
-
-  # start chrome with proxy enabled
   docker run -ti \
     --cpuset-cpus 0 \
-    --memory 1gb \
+    --memory 3gb \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v $project_dir:/data/project \
     -e DISPLAY=unix$DISPLAY \
-    -v $project_dir/.config:/home/chrome/.config \
-    -v $HOME/Downloads:/home/chrome/Downloads \
-    --security-opt seccomp=$HOME/containers/chrome/chrome.json \
-    --device /dev/dri \
-    -v /dev/shm:/dev/shm \
-    --name "chrome-${project}" \
-    -h "chrome-${project}" \
-    chrome \
-    --proxy-server="http://${burp_ip}:8080"
+    -e GDK_SCALE \
+    -e GDK_DPI_SCALE \
+    --name "webtest-${project}" \
+    -h "webtest-${project}" \
+    webtest
+
+  ip=$(docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' "webtest-${project}")
+  echo "Container IP: ${ip}"
 }
 
 burp() {
@@ -63,10 +37,10 @@ burp() {
     --cpuset-cpus 0 \
     --memory 2gb \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v $HOME/containers/burp/:/data/projects \
+    -v $HOME/containers/burp/:/data/project \
     -e DISPLAY=unix$DISPLAY \
-    --name burp \
-    -h burp \
+    --name burppro \
+    -h burppro \
     burppro &> /dev/null
 }
 
