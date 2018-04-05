@@ -105,10 +105,10 @@ firefox() {
 kali() {
   delete_stopped kali
 
-  docker run -d \
+  docker run -ti \
     --net host \
     -h kali \
-    kali &> /dev/null
+    kali
 }
 
 # Helper functions
