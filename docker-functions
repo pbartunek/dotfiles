@@ -105,6 +105,9 @@ chrome() {
 firefox() {
   delete_stopped firefox
 
+  mkdir -p "${HOME}/containers/firefox/.cache"
+  mkdir -p "${HOME}/containers/firefox/.mozilla"
+  mkdir -p "${HOME}/Downloads"
   docker run -d \
     --user browser:browser \
     --memory 1gb \
