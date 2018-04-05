@@ -20,14 +20,9 @@ webtest() {
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v $project_dir:/data/project \
     -e DISPLAY=unix$DISPLAY \
-    -e GDK_SCALE \
-    -e GDK_DPI_SCALE \
     --name "webtest-${project}" \
     -h "webtest-${project}" \
     webtest
-
-  ip=$(docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' "webtest-${project}")
-  echo "Container IP: ${ip}"
 }
 
 burp() {
