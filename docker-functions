@@ -102,6 +102,7 @@ kali() {
 
   docker run -ti \
     --net host \
+    --name kali \
     -h kali \
     kali
 }
