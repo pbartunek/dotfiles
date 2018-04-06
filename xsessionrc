@@ -1,0 +1,4 @@
+
+# allow local connections to x server
+
+xhost +local:
