@@ -1,5 +1,6 @@
 # set syntax=bash
 
+# requirements: maim, slop, zenity
 prtscr() {
   filename="$(date +%F-%H.%M.%S).png"
   temp_file=$(mktemp --suffix=.png)
