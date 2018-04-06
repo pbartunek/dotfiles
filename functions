@@ -1,0 +1,23 @@
+# set syntax=bash
+
+prtscr() {
+  filename="$(date +%F-%H.%M.%S).png"
+  temp_file=$(mktemp --suffix=.png)
+  last_dir=/tmp/prtscr.last.tmp
+  save_as=""
+
+  if [ -f $last_dir ]; then
+    filename="$(cat $last_dir)/$filename"
+  fi
+  maim -s $temp_file &> /dev/null
+
+  if [ -s $temp_file ]; then
+    save_as=`zenity --file-selection --save --filename $filename --title "Save as" &> /dev/null`
+    if [[ ! -z "$save_as" ]]; then
+      cp $temp_file "$save_as"
+      dirname $save_as > $last_dir
+    fi
+
+    rm $temp_file
+  fi
+}

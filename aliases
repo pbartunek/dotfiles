@@ -1,0 +1,8 @@
+#
+alias ".."="cd .."
+alias "...."="cd ../.."
+alias "ll"="ls -lah"
+
+# git
+alias gs="git status -s"
+alias gc="git commit -m"
