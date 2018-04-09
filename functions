@@ -10,10 +10,10 @@ prtscr() {
   if [ -f $last_dir ]; then
     filename="$(cat $last_dir)/$filename"
   fi
-  maim -s $temp_file &> /dev/null
+  maim -s $temp_file 2> /dev/null
 
   if [ -s $temp_file ]; then
-    save_as=`zenity --file-selection --save --filename $filename --title "Save as" &> /dev/null`
+    save_as=`zenity --file-selection --save --filename $filename --title "Save as" 2> /dev/null`
     if [[ ! -z "$save_as" ]]; then
       cp $temp_file "$save_as"
       dirname $save_as > $last_dir
