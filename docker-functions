@@ -36,7 +36,10 @@ burp() {
     -e DISPLAY=unix$DISPLAY \
     --name burppro \
     -h burppro \
-    burppro &> /dev/null
+    burppro
+
+  # get burp container IP address
+  echo "Container IP address: " $(docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' 'burppro')
 }
 
 burpfree() {
@@ -49,7 +52,10 @@ burpfree() {
     -e DISPLAY=unix$DISPLAY \
     --name burp \
     -h burp \
-    burp &> /dev/null
+    burp
+
+  # get burp container IP address
+  echo "Container IP address: " $(docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' 'burp')
 }
 
 chrome() {
@@ -68,7 +74,7 @@ chrome() {
     -v /dev/shm:/dev/shm \
     --name chrome \
     -h chrome \
-    chrome &> /dev/null
+    chrome
 }
 
 firefox() {
@@ -94,7 +100,7 @@ firefox() {
     --device /dev/dri \
     --name firefox \
     -h firefox \
-    firefox "$@" &> /dev/null
+    firefox "$@"
 }
 
 kali() {
