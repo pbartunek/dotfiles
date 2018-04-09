@@ -1,9 +1,11 @@
 #
+alias "c=cd"
 alias ".."="cd .."
-alias "...."="cd ../.."
+alias "..."="cd ../.."
 alias "ll"="ls -lah"
 
 # git
+alias g=git
 alias gs="git status -s"
 alias gc="git commit -m"
 alias ga="git add ."
