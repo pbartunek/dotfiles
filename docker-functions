@@ -10,15 +10,32 @@ webtest() {
     echo "Usage: webpt project_name";
     return
   fi 
-  mkdir -p $project_dir
+
+  mkdir -p $project_dir/.config/chromium
+
+  # copy BurpSuite preferences on first run
+  if [ ! -d $project_dir/.BurpSuite ]; then
+    cp -r ~/files/BurpSettings/BurpSuite $project_dir/.BurpSuite
+    cp -r ~/files/BurpSettings/java $project_dir/.java 
+    cp -r ~/files/BurpSettings/project.json $project_dir/
+  fi
 
   delete_stopped "webtest-${project}"
 
   docker run -ti \
     --cpuset-cpus 0 \
     --memory 3gb \
+    -v /etc/localtime:/etc/localtime:ro \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v /dev/shm:/dev/shm \
+    -v /etc/hosts:/etc/hosts \
     -v $project_dir:/data/project \
+    -v $project_dir/.BurpSuite:/root/.BurpSuite \
+    -v $project_dir/.java:/root/.java \
+    -v $project_dir/.config/chromium:/root/.config/chromium \
+    --device /dev/snd \
+    --device /dev/dri \
+    --device /dev/bus/usb \
     -e DISPLAY=unix$DISPLAY \
     --name "webtest-${project}" \
     -h "webtest-${project}" \
@@ -26,6 +43,13 @@ webtest() {
 }
 
 burp() {
+  # copy BurpSuite preferences on first run
+  if [ ! -d $HOME/containers/burp/.BurpSuite ]; then
+    mkdir -p $HOME/containers/burp
+    cp -r ~/files/BurpSettings/BurpSuite $project_dir/.BurpSuite
+    cp -r ~/files/BurpSettings/java $project_dir/.java 
+  fi
+
   delete_stopped burppro
 
   docker run -d \
