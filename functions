@@ -22,3 +22,20 @@ prtscr() {
     rm $temp_file
   fi
 }
+
+updateRepos() {
+  repos=(dockerfiles dotfiles notes tools)
+  currentDir=$(pwd)
+
+  cd ~/files
+  for repo in $repos
+    do
+      if [ -d $repo ]; then
+        echo "pulling $repo"
+        cd $repo
+        git pull
+        cd ..
+      fi
+  done
+  cd $currentDir
+}
