@@ -3,6 +3,7 @@ alias "c=cd"
 alias ".."="cd .."
 alias "..."="cd ../.."
 alias "ll"="ls -lah"
+alias "ls=ls -h"
 
 # git
 alias g=git

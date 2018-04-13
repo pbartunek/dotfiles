@@ -1,5 +1,6 @@
 # set syntax=bash
 
+# print screen
 # requirements: maim, slop, zenity
 prtscr() {
   filename="$(date +%F-%H.%M.%S).png"
@@ -23,7 +24,8 @@ prtscr() {
   fi
 }
 
-updateRepos() {
+# update git repos
+update-repos() {
   repos=(dockerfiles dotfiles notes tools)
   currentDir=$(pwd)
 
@@ -38,4 +40,11 @@ updateRepos() {
       fi
   done
   cd $currentDir
+}
+
+# run webserver from current directory
+serv() {
+  local port=${1:-8090}
+
+  ruby -run -e httpd . -p $port
 }
