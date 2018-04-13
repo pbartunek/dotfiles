@@ -36,7 +36,7 @@ webtest() {
     --device /dev/snd \
     --device /dev/dri \
     --device /dev/bus/usb \
-    -e DISPLAY=unix$DISPLAY \
+    -e DISPLAY=$DISPLAY \
     --name "webtest-${project}" \
     -h "webtest-${project}" \
     webtest
@@ -128,11 +128,21 @@ firefox() {
 }
 
 kali() {
+  local project=$1
+  local project_dir="${HOME}/work/${project}"
+
+  if [[ "$project" == "" ]]; then
+    mount_point="${HOME}/work:/data"
+  else
+    mount_point="${HOME}/work/${project}:/data"
+  fi 
+
   delete_stopped kali
 
   docker run -ti \
     --net host \
     --name kali \
+    -v "${mount_point}" \
     -h kali \
     kali
 }
