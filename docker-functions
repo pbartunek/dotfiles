@@ -25,10 +25,11 @@ webtest() {
   docker run -ti \
     --cpuset-cpus 0 \
     --memory 3gb \
+    --net host \
     -v /etc/localtime:/etc/localtime:ro \
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v /dev/shm:/dev/shm \
-    -v /etc/hosts:/etc/hosts \
+    -v /etc/hosts:/etc/hosts:ro \
     -v $project_dir:/data/project \
     -v $project_dir/.BurpSuite:/root/.BurpSuite \
     -v $project_dir/.java:/root/.java \
