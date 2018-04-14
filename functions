@@ -48,3 +48,10 @@ serv() {
 
   ruby -run -e httpd . -p $port
 }
+
+# convert IP address to decimal
+ip2dec() {
+  IFS=.
+  read -r a b c d <<< "$1"
+  echo $(( (a*256**3) + (b*256**2) + (c*256) + (d) ))
+}
