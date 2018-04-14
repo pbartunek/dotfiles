@@ -11,3 +11,6 @@ alias gs="git status"
 alias gc="git commit -m"
 alias ga="git add ."
 alias gd="git diff"
+
+# docker
+alias dcleanup="docker system prune -f"
