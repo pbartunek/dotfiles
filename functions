@@ -46,7 +46,11 @@ update-repos() {
 serv() {
   local port=${1:-8090}
 
-  ruby -run -e httpd . -p $port
+  if [[ $port =~ ^[0-9]+$ ]]; then
+    ruby -run -e httpd . -p $port
+  else
+    echo "Usage: serv [port number]"
+  fi
 }
 
 # convert IP address to decimal
