@@ -59,3 +59,27 @@ ip2dec() {
   read -r a b c d <<< "$1"
   echo $(( (a*256**3) + (b*256**2) + (c*256) + (d) ))
 }
+
+# get subdomains
+function get-subdomains() {
+  if [ -z "$1" ]; then
+    echo "Usage $0 target.domain"
+    exit
+  fi
+  target=$1
+  temp=mktemp
+
+  echo "Getting subdomains for $target"
+  echo -n "sources: "
+
+  echo -n "Hackertarget, "
+  curl "http://api.hackertarget.com/hostsearch/?q=$target" -m 30 2>/dev/null | sed 's/,/ /' | awk '{print $1}' | grep "$target" >> $temp
+
+  echo -n "Virustotal, "
+  curl https://www.virustotal.com/en/domain/$target/information/ -H 'Host: www.virustotal.com' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' -H 'Accept-Language: en-US,en;q=0.5' --compressed -m 30 2> /dev/null| grep information | grep "$target" | awk '{print $3}' | sed 's/\// /g' | awk '{print $4}'  >> $temp
+
+  echo ""
+  echo "Found $(cat $temp | sort -u | wc -l) $target subdomains:"
+  cat $temp | sort -u
+  rm $temp
+}
