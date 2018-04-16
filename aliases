@@ -14,7 +14,7 @@ alias gd="git diff"
 
 # docker
 alias dcleanup="docker system prune -f"
-
+alias di="docker images"
 
 # feh
 alias feh="feh -B white"

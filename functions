@@ -24,43 +24,6 @@ prtscr() {
   fi
 }
 
-# update git repos
-repos-update() {
-  update() {
-        echo "pulling $1"
-        git pull
-  }
-  repos-action update
-}
-
-# get status of git repos
-repos-status() {
-  status() {
-      stat=$(git -c color.status=always status -s)
-      if [ ! -z "$stat" ]; then
-        echo $1
-        echo $stat
-      fi
-  }
-  repos-action status
-}
-
-repos-action() {
-  local repos=(dockerfiles dotfiles notes tools)
-  local currentDir=$(pwd)
-
-  cd ~/files
-  for repo in $repos
-    do
-      if [ -d $repo ]; then
-        cd $repo
-        $1 $repo
-        cd ..
-      fi
-  done
-  cd $currentDir
-}
-
 # run webserver from current directory
 serv() {
   local port=${1:-8090}
