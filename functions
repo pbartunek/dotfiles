@@ -111,3 +111,15 @@ format-xml() {
 
   cat $1 | python -c 'import sys;import xml.dom.minidom;s=sys.stdin.read();print xml.dom.minidom.parseString(s).toprettyxml()'
 }
+
+#
+work() {
+  local dir=$1
+
+  if [ -z "$dir" ]; then
+    cd "${HOME}/work"
+  else
+    cd "${HOME}/work/${dir}"
+  fi
+}
+compdef '_files -/ -W ~/work' work
