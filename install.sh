@@ -18,3 +18,9 @@ if [ "$(uname -s)" == "Linux" ]; then
 
   ln -s ${PWD}/i3/config ${HOME}/.config/i3/config
 fi
+
+# get seccomp profile for containers running chrome/chromium 
+if [ ! -f ${HOME}/containers/chrome/chrome.json ]; then
+  mkdir -p ${HOME}/containers/chrome
+  wget https://raw.githubusercontent.com/jfrazelle/dotfiles/master/etc/docker/seccomp/chrome.json -O ${HOME}/containers/chrome/chrome.json
+fi

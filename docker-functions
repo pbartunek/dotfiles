@@ -31,9 +31,10 @@ webtest() {
     -v /dev/shm:/dev/shm \
     -v /etc/hosts:/etc/hosts:ro \
     -v $project_dir:/data/project \
-    -v $project_dir/.BurpSuite:/root/.BurpSuite \
-    -v $project_dir/.java:/root/.java \
-    -v $project_dir/.config/chromium:/root/.config/chromium \
+    -v $project_dir/.BurpSuite:/home/root/.BurpSuite \
+    -v $project_dir/.java:/home/root/.java \
+    -v $project_dir/.config/chromium:/home/root/.config/chromium \
+    --security-opt seccomp:$HOME/containers/chrome/chrome.json \
     --device /dev/snd \
     --device /dev/dri \
     --device /dev/bus/usb \
