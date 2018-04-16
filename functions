@@ -28,9 +28,7 @@ prtscr() {
 repos-update() {
   update() {
         echo "pulling $1"
-        cd $1
         git pull
-        cd ..
   }
   repos-action update
 }
@@ -38,10 +36,11 @@ repos-update() {
 # get status of git repos
 repos-status() {
   status() {
-        echo "Status of: $1"
-        cd $1
-        git status -s
-        cd ..
+      stat=$(git -c color.status=always status -s)
+      if [ ! -z "$stat" ]; then
+        echo $1
+        echo $stat
+      fi
   }
   repos-action status
 }
@@ -54,7 +53,9 @@ repos-action() {
   for repo in $repos
     do
       if [ -d $repo ]; then
+        cd $repo
         $1 $repo
+        cd ..
       fi
   done
   cd $currentDir
