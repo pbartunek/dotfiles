@@ -42,6 +42,8 @@ webtest() {
     -h "webtest-${project}" \
     webtest
 }
+# autocompletion for webtest
+compdef '_files -/ -W ~/work' webtest
 
 burp() {
   # copy BurpSuite preferences on first run
@@ -147,6 +149,8 @@ kali() {
     -h kali \
     kali
 }
+# autocompletion for kali
+compdef '_files -/ -W ~/work' kali
 
 # Helper functions
 
