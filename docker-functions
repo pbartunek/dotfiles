@@ -146,6 +146,7 @@ kali() {
     --net host \
     --name kali \
     -v "${mount_point}" \
+    -v "${HOME}/file/tools" \
     -h kali \
     kali
 }
