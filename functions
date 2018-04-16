@@ -25,18 +25,36 @@ prtscr() {
 }
 
 # update git repos
-update-repos() {
-  repos=(dockerfiles dotfiles notes tools)
-  currentDir=$(pwd)
+repos-update() {
+  update() {
+        echo "pulling $1"
+        cd $1
+        git pull
+        cd ..
+  }
+  repos-action update
+}
+
+# get status of git repos
+repos-status() {
+  status() {
+        echo "Status of: $1"
+        cd $1
+        git status -s
+        cd ..
+  }
+  repos-action status
+}
+
+repos-action() {
+  local repos=(dockerfiles dotfiles notes tools)
+  local currentDir=$(pwd)
 
   cd ~/files
   for repo in $repos
     do
       if [ -d $repo ]; then
-        echo "pulling $repo"
-        cd $repo
-        git pull
-        cd ..
+        $1 $repo
       fi
   done
   cd $currentDir
