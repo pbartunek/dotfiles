@@ -6,8 +6,11 @@ webtest() {
   local burp_ip
 
   if [[ "$project" == "" ]]; then
-    echo "You need to specify project name!";
-    echo "Usage: webpt project_name";
+    echo "You need to specify project name!"
+    echo "Usage: $0 project_name"
+    return
+  elif [[ ! "$project" =~ ^[a-zA-Z0-9_.-]$ ]]; then
+    echo "Invalid project name, only [a-zA-Z0-9_.-] characters are allowed!"
     return
   fi 
 
