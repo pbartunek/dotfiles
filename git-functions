@@ -42,7 +42,7 @@ repos-action() {
     do
       if [ -d $repo ]; then
         cd $repo
-        $1 $repo
+        $1
         cd ..
       fi
   done
