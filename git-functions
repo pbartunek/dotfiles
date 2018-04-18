@@ -12,8 +12,8 @@ repos-update() {
 # get status of git repos
 repos-status() {
   status() {
-      stat=$(git -c color.status=always status -s)
-      if [ ! -z "$stat" ]; then
+      stat=$(git -c color.status=always status -s -b)
+      if [ $(echo $stat | wc -l) -gt 1 ] || [[ "$stat" =~ "ahead" ]]; then
         echo "Diff $1"
         echo $stat
       fi
@@ -42,7 +42,7 @@ repos-action() {
     do
       if [ -d $repo ]; then
         cd $repo
-        $1
+        $1 $repo
         cd ..
       fi
   done
