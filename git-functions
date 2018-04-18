@@ -10,18 +10,19 @@ repos-update() {
 }
 
 # get status of git repos
+# display only modified repositories
 repos-status() {
   status() {
       stat=$(git -c color.status=always status -s -b)
       if [ $(echo $stat | wc -l) -gt 1 ] || [[ "$stat" =~ "ahead" ]]; then
-        echo "Diff $1"
+        echo "$1"
         echo $stat
       fi
   }
   repos-action status
 }
 
-# get diff of git repos
+# get diff from all git repos
 repos-diff() {
   diff() {
     diff=$(git -c color.diff=always diff)
