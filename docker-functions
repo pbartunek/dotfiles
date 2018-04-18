@@ -22,7 +22,7 @@ webtest() {
 
   delete_stopped "webtest-${project}"
 
-  docker run -ti \
+  docker run -d \
     --cpuset-cpus 0 \
     --memory 3gb \
     --net host \
