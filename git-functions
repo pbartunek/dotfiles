@@ -1,7 +1,7 @@
 # set syntax=bash
 
 # pull git repos
-repos-update() {
+repos-pull() {
   update() {
         echo "pulling $1"
         git pull
