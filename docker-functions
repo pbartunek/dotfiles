@@ -1,5 +1,19 @@
 # set syntax=bash
 
+# Helper functions
+
+delete_stopped() {
+  local container=$1
+  local state="false"
+
+  state=$(docker inspect -f "{{.State.Running}}" "$container" 2> /dev/null)
+  if [[ "$state" == "false" ]]; then
+    docker rm $container
+  fi
+}
+
+# Docker wrappers
+
 webtest() {
   local project=${1%/}
   local project_dir="${HOME}/work/${project}"
@@ -156,14 +170,8 @@ kali() {
 # autocompletion for kali
 compdef '_files -/ -W ~/work' kali
 
-# Helper functions
-
-delete_stopped() {
-  local container=$1
-  local state="false"
-
-  state=$(docker inspect -f "{{.State.Running}}" "$container" 2> /dev/null)
-  if [[ "$state" == "false" ]]; then
-    docker rm $container
-  fi
+scraper() {
+  docker run -ti \
+    -v ${PWD}:/data/workdir scraper "$@"
 }
+
