@@ -2,22 +2,33 @@
 
 # pull git repos
 repos-pull() {
-  update() {
-        echo "pulling $1"
-        git pull
+  pull() {
+    echo "pulling $1"
+    git pull
   }
-  repos-action update
+  repos-action pull
+}
+
+# push git repos
+repos-push() {
+  push() {
+    if [[ $(git status -b -s) =~ "ahead" ]]; then
+      echo "pushing $1"
+      git push
+    fi
+  }
+  repos-action push
 }
 
 # get status of git repos
 # display only modified repositories
 repos-status() {
   status() {
-      stat=$(git -c color.status=always status -s -b)
-      if [ $(echo $stat | wc -l) -gt 1 ] || [[ "$stat" =~ "ahead" ]]; then
-        echo "$1"
-        echo $stat
-      fi
+    stat=$(git -c color.status=always status -s -b)
+    if [[ $(echo $stat | wc -l) -gt 1 || $stat =~ "ahead" ]]; then
+      echo "$1"
+      echo $stat
+    fi
   }
   repos-action status
 }
