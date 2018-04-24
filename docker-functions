@@ -20,7 +20,6 @@ webtest() {
   if [ ! -d $project_dir/.BurpSuite ]; then
     cp -r ~/files/BurpSettings/BurpSuite $project_dir/.BurpSuite
     cp -r ~/files/BurpSettings/java $project_dir/.java 
-    cp -r ~/files/BurpSettings/project.json $project_dir/
   fi
 
   delete_stopped "webtest-${project}"
