@@ -171,7 +171,10 @@ kali() {
 compdef '_files -/ -W ~/work' kali
 
 scraper() {
-  docker run -ti \
-    -v ${PWD}:/data/workdir scraper "$@"
+  delete_stopped scraper
+
+  docker run -d \
+    -v ${PWD}:/data/workdir \
+    scraper "$@"
 }
 
