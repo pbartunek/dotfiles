@@ -6,7 +6,7 @@ repos-pull() {
     echo "pulling $1"
     git pull
   }
-  repos-action pull
+  _repos-action pull
 }
 
 # push git repos
@@ -17,7 +17,7 @@ repos-push() {
       git push
     fi
   }
-  repos-action push
+  _repos-action push
 }
 
 # get status of git repos
@@ -30,7 +30,7 @@ repos-status() {
       echo $stat
     fi
   }
-  repos-action status
+  _repos-action status
 }
 
 # get diff from all git repos
@@ -41,22 +41,21 @@ repos-diff() {
       echo $diff
     fi
   }
-  repos-action diff
+  _repos-action diff
 }
 
 # helper function
-repos-action() {
+_repos-action() {
   local repos=(dockerfiles dotfiles notes tools)
   local currentDir=$(pwd)
 
   cd ~/files
-  for repo in $repos
-    do
-      if [ -d $repo ]; then
-        cd $repo
-        $1 $repo
-        cd ..
-      fi
+  for repo in $repos; do
+    if [ -d $repo ]; then
+      cd $repo
+      $1 $repo
+      cd ..
+    fi
   done
   cd $currentDir
 }
