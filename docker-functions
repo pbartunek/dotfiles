@@ -36,6 +36,8 @@ webtest() {
     cp -r ~/files/BurpSettings/java $project_dir/.java 
   fi
 
+  cd $project_dir
+
   delete_stopped "webtest-${project}"
 
   docker run -d \
