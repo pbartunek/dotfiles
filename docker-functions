@@ -48,6 +48,7 @@ webtest() {
     -v /tmp/.X11-unix:/tmp/.X11-unix \
     -v /dev/shm:/dev/shm \
     -v /etc/hosts:/etc/hosts:ro \
+    -v ${HOME}/files/tools:/tools \
     -v $project_dir:/data/project \
     -v $project_dir/.BurpSuite:/home/webtest/.BurpSuite \
     -v $project_dir/.java:/home/webtest/.java \
