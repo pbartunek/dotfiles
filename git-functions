@@ -46,7 +46,7 @@ repos-diff() {
 
 # helper function
 _repos-action() {
-  local repos=(dockerfiles dotfiles notes tools)
+  local repos=(dockerfiles dotfiles notes tools docker-labs)
   local currentDir=$(pwd)
 
   cd ~/files
