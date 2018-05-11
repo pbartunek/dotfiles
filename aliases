@@ -18,4 +18,4 @@ alias dcleanup="docker system prune -f"
 alias di="docker images"
 
 # feh
-alias feh="feh -B white"
+alias feh='feh -B white --action1 "echo %N | tee -a files.log"'
