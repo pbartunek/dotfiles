@@ -170,6 +170,12 @@ kali() {
     -h kali \
     kali
 }
+
+gobuster() {
+  docker run --rm -v "/Users/$USER/files/tools/wordlists/:/wordlists" \
+    devalias/gobuster -e "$@"
+}
+
 # autocompletion for kali
 compdef '_files -/ -W ~/work' kali
 
