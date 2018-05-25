@@ -173,3 +173,5 @@ for_window [class="Nautilus"] floating enable
 for_window [title="Preferences$"] floating enable
 for_window [title="feh"] floating enable
 for_window [window_role="task_dialog"] floating enable
+
+exec xsetroot -solid "#000000"
