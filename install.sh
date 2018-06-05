@@ -30,4 +30,6 @@ fi
 
 # configure git
 git config --global core.excludesfile ~/.gitignore
-git config --global core.editor vim  
+git config --global core.editor vim
+
+git config --global help.autocorrect 1
