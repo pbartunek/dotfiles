@@ -28,6 +28,6 @@ if [ "$(uname -s)" == "Linux" ]; then
   fi
 fi
 
-# configure global gitignore file
+# configure git
 git config --global core.excludesfile ~/.gitignore
-git config --global core.editor vim
+git config --global core.editor vim  
