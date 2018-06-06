@@ -28,7 +28,10 @@ webtest() {
     return
   fi 
 
-  mkdir -p $project_dir/.config/chromium
+  # create chromium config directory
+  if [ ! -d $project_dir/.config/chromium ]; then
+    mkdir -p $project_dir/.config/chromium
+  fi
 
   # copy BurpSuite preferences on first run
   if [ ! -d $project_dir/.BurpSuite ]; then

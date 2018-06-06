@@ -1,7 +1,10 @@
-#
+# cd
 alias "c=cd"
 alias ".."="cd .."
 alias "..."="cd ../.."
+alias - -="cd -"
+
+# ls
 alias "ll"="ls -lah"
 alias "ls=ls -h"
 
@@ -19,3 +22,6 @@ alias di="docker images"
 
 # feh
 alias feh='feh -B white --action1 "echo %N | tee -a files.log"'
+
+# Grep
+alias grep="grep --color=auto"
