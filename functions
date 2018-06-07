@@ -87,3 +87,37 @@ work() {
   fi
 }
 compdef '_files -/ -W ~/work' work
+
+gen-html-report() {
+
+exec 1<>report.html
+cat <<-HTML
+<html>
+  <head>
+    <title></title>
+    <style>
+    table, td, tr {
+      border: 1px solid black;
+    }
+    </style>
+  </head>
+  <body>
+  <table>
+HTML
+for image in $(ls *.png); do
+  cat <<-HTML
+    <tr>
+      <td>${image}</td>
+      <td><img src="./${image}" width="800px" /></td>
+    </tr>
+HTML
+done
+cat <<-HTML
+  </table>
+  </body>
+</html>
+HTML
+
+exec &>/dev/tty
+echo "done"
+}
