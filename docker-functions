@@ -176,6 +176,7 @@ kali() {
 
 gobuster() {
   docker run --rm -v "${HOME}/files/tools/wordlists/:/wordlists" \
+    --net host \
     devalias/gobuster -e "$@"
 }
 
