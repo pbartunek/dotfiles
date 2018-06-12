@@ -156,17 +156,21 @@ firefox() {
 kali() {
   local project=$1
   local project_dir="${HOME}/work/${project}"
+  local name="kali"
+  local mount_point=""
 
   if [[ "$project" == "" ]]; then
     mount_point="${HOME}/work:/data"
   else
     mount_point="${HOME}/work/${project}:/data"
+    name="kali-${project}"
   fi 
 
-  delete_stopped kali
+  delete_stopped $name
 
   docker run -ti \
     --net host \
+    --name $name \
     -v "${mount_point}" \
     -v "${HOME}/files/tools:/tools" \
     -h kali \
