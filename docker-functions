@@ -176,6 +176,8 @@ kali() {
     -h kali \
     kali
 }
+# autocompletion for kali
+compdef '_files -/ -W ~/work' kali
 
 gobuster() {
   docker run --rm -v "${HOME}/files/tools/wordlists/:/wordlists" \
@@ -195,9 +197,6 @@ _gobuster() {
     return ret
 }
 
-# autocompletion for kali
-compdef '_files -/ -W ~/work' kali
-
 scraper() {
   delete_stopped scraper
   
@@ -214,4 +213,8 @@ echo "$args"
     scraper "$args"
 }
 
-
+amap() {
+  docker run --rm \
+  --net host \
+  amap "$@" | tee -a amap.log
+}
