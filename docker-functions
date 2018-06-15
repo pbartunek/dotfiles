@@ -180,9 +180,10 @@ kali() {
 compdef '_files -/ -W ~/work' kali
 
 gobuster() {
-  docker run --rm -v "${HOME}/files/tools/wordlists/:/wordlists" \
+  docker run --rm \
+    -v "${HOME}/files/tools/wordlists/:/wordlists" \
     --net host \
-    gobuster -e -k -l "$@" | tee -a gobuster.log
+    gobuster -e -k -l -s 200,204,301,302,307,500,501 "$@" | tee -a gobuster.log
 }
 # autocompletion for gobuster
 compdef '_gobuster' gobuster
