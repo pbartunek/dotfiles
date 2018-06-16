@@ -153,6 +153,7 @@ firefox() {
     firefox "$@"
 }
 
+# kali linux
 kali() {
   local project=$1
   local project_dir="${HOME}/work/${project}"
@@ -179,6 +180,7 @@ kali() {
 # autocompletion for kali
 compdef '_files -/ -W ~/work' kali
 
+# gobuster
 gobuster() {
   docker run --rm \
     -v "${HOME}/files/tools/wordlists/:/wordlists" \
@@ -200,6 +202,7 @@ _gobuster() {
     return ret
 }
 
+# website screenshots
 scraper() {
   delete_stopped scraper
   
@@ -208,7 +211,7 @@ scraper() {
     proxy='http://127.0.0.1:8080'
     args=${*:2}
   fi
-echo "$args"
+
   docker run -d \
     --net host \
     -v ${PWD}:/data/workdir \
@@ -216,8 +219,17 @@ echo "$args"
     scraper "$args"
 }
 
+# amap
 amap() {
   docker run --rm \
   --net host \
   amap "$@" | tee -a amap.log
 }
+
+# run amap, use nmap scan results as input
+amap-nmap() {
+  docker run --rm \
+  --net host \
+  amap amap -A -b -d  -i "$@" | tee -a amap.log
+}
+compdef '_files -g "*.gnmap"' amap-nmap
