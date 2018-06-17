@@ -229,7 +229,8 @@ amap() {
 # run amap, use nmap scan results as input
 amap-nmap() {
   docker run --rm \
+  -v ${PWD}:/data \
   --net host \
-  amap amap -A -b -d  -i "$@" | tee -a amap.log
+  amap -A -b -d -i "/data/$1" | tee -a amap.log
 }
 compdef '_files -g "*.gnmap"' amap-nmap
