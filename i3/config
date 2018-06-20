@@ -159,6 +159,7 @@ exec nm-applet
 
 # bind Printscreen
 bindsym Print exec "zsh -c '. ~/.functions; prtscr'"
+bindsym $mod+p exec "zsh -c '. ~/.functions; prtscr'"
 
 # Rofi
 bindsym $mod+space exec "rofi -combi-modi run,drun,window -show combi -modi combi
