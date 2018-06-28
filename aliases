@@ -26,4 +26,4 @@ alias feh='feh -B white --action1 "echo %N | tee -a files.log"'
 # Grep
 alias grep="grep --color=auto"
 
-alias nmap-grep="~/files/scripts/nmap-parser.rb"
+alias nmap-search="~/files/scripts/nmap-search.rb"
