@@ -55,6 +55,7 @@ webtest() {
     -v $project_dir:/data/project \
     -v $project_dir/.BurpSuite:/home/webtest/.BurpSuite \
     -v $project_dir/.java:/home/webtest/.java \
+    -v $project_dir/Downloads:/home/webtest/Downloads \
     -v $project_dir/.config/chromium:/home/webtest/.config/chromium \
     --security-opt seccomp:$HOME/containers/chrome/chrome.json \
     --device /dev/snd \
