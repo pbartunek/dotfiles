@@ -235,3 +235,13 @@ amap-nmap() {
   amap -A -b -d -i "/data/$1" | tee -a amap.log
 }
 compdef '_files -g "*.gnmap"' amap-nmap
+
+# headless chromium
+chromium-headless() {
+  docker run -d \
+    -v ${PWD}:/workdir \
+    --net host \
+    --security-opt seccomp:$HOME/containers/chrome/chrome.json \
+    chromium-headless "$@"
+}
+
