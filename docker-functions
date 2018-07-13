@@ -219,6 +219,15 @@ scraper() {
     -e "PROXY=$proxy" \
     scraper "$args"
 }
+#
+# headless chromium scraper
+scraper-chromium() {
+  docker run -d \
+    -v ${PWD}:/workdir \
+    --net host \
+    --security-opt seccomp:$HOME/containers/chrome/chrome.json \
+    scraper-chromium "$@"
+}
 
 # amap
 amap() {
