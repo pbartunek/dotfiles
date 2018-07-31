@@ -121,3 +121,7 @@ HTML
 exec &>/dev/tty
 echo "done"
 }
+
+function nmap-open() {
+  grep -v closed $1 | grep -v filtered
+}
