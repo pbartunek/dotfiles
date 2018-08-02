@@ -162,19 +162,22 @@ kali() {
   local mount_point=""
 
   if [[ "$project" == "" ]]; then
-    mount_point="${HOME}/work:/data"
+    mount_point="${HOME}/work"
   else
-    mount_point="${HOME}/work/${project}:/data"
+    mount_point="${HOME}/work/${project}"
     name="kali-${project}"
   fi 
+
+  mkdir -p "${mount_point}/msf_loot"
 
   delete_stopped $name
 
   docker run -ti \
     --net host \
     --name $name \
-    -v "${mount_point}" \
-    -v "${HOME}/files/tools:/tools" \
+    -v "${mount_point}":/data \
+    -v "${mount_point}/msf_loot":/root/.msf4/loot \
+    -v ${HOME}/files/tools:/tools \
     -h kali \
     kali
 }
