@@ -125,3 +125,16 @@ echo "done"
 function nmap-open() {
   grep -v closed $1 | grep -v filtered
 }
+
+# notes
+function notes() {
+  if [[ -d ${HOME}/files/notes ]]; then
+    cd ${HOME}/files/notes;
+    screen -S notes -t server -d -m ./web.sh
+    sleep 1
+    screen -X screen -t vim vim files
+    screen -rd notes
+  else
+    echo "notes directory not found"
+  fi
+}
