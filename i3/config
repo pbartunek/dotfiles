@@ -152,7 +152,6 @@ bar {
 
 # vmware
 exec vmware-user-suid-wrapper
-exec service open-vm-tools restart
 
 # network manager
 exec nm-applet
