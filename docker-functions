@@ -14,6 +14,65 @@ delete_stopped() {
 
 # Docker wrappers
 
+webtest-firefox() {
+  local project=${1%/}
+  local project_dir="${HOME}/work/${project}"
+  local burp_ip
+
+  if [[ "$project" == "" ]]; then
+    echo "You need to specify project name!"
+    echo "Usage: $0 project_name"
+    return
+  elif [[ ! "$project" =~ ^[a-zA-Z0-9_.-]+$ ]]; then
+    echo "Invalid project name, only [a-zA-Z0-9_.-] characters are allowed!"
+    return
+  fi 
+
+  # create firefox directory
+  if [ ! -d $project_dir/.mozilla ]; then
+    echo "creating project directory"
+    mkdir -p $project_dir/.mozilla
+    mkdir -p $project_dir/Downloads
+    echo "copying firefox profile"
+    cp -r ~/files/FirefoxSettings/* $project_dir/.mozilla/
+  fi
+
+  # copy BurpSuite preferences on first run
+  if [ ! -d $project_dir/.BurpSuite ]; then
+    cp -r ~/files/BurpSettings/BurpSuite $project_dir/.BurpSuite
+    cp -r ~/files/BurpSettings/java $project_dir/.java 
+  fi
+
+  cd $project_dir
+
+  delete_stopped "webtest-firefox-${project}"
+
+  docker run -d \
+    --cpuset-cpus 0 \
+    --memory 3gb \
+    --net host \
+    -v /etc/localtime:/etc/localtime:ro \
+    -v /tmp/.X11-unix:/tmp/.X11-unix \
+    -v /dev/shm:/dev/shm \
+    -v /etc/hosts:/etc/hosts:ro \
+    -v ${HOME}/files/tools:/data/tools \
+    -v $project_dir:/data/project \
+    -v $project_dir/.BurpSuite:/home/webtest/.BurpSuite \
+    -v $project_dir/.java:/home/webtest/.java \
+    -v $project_dir/Downloads:/home/webtest/Downloads \
+    -v $project_dir/.mozilla:/home/webtest/.mozilla \
+    --device /dev/snd \
+    --device /dev/dri \
+    --device /dev/bus/usb \
+    -e DISPLAY=$DISPLAY \
+    --name "webtest-firefox-${project}" \
+    -h "webtest-firefox-${project}" \
+    webtest-firefox
+}
+# autocompletion for webtest-firefox
+compdef '_files -/ -W ~/work' webtest-firefox
+
+
 webtest() {
   local project=${1%/}
   local project_dir="${HOME}/work/${project}"
