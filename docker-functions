@@ -14,7 +14,7 @@ delete_stopped() {
 
 # Docker wrappers
 
-webtest-firefox() {
+webtest() {
   local project=${1%/}
   local project_dir="${HOME}/work/${project}"
   local burp_ip
@@ -73,7 +73,7 @@ webtest-firefox() {
 compdef '_files -/ -W ~/work' webtest-firefox
 
 
-webtest() {
+webtest-chrome() {
   local project=${1%/}
   local project_dir="${HOME}/work/${project}"
   local burp_ip
