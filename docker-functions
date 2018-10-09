@@ -317,3 +317,12 @@ chromium-headless() {
     chromium-headless "$@"
 }
 
+# eyewitness
+eyewitness() {
+  docker run \
+    --rm \
+    -it \
+    -v ${PWD}:/tmp/EyeWitness \
+    eyewitness \
+    --headless "$@"
+}
