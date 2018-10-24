@@ -8,6 +8,8 @@ alias - -="cd -"
 alias "ll"="ls -lah"
 alias "ls=ls -h"
 
+df="df -h"
+
 # git
 alias g=git
 alias gs="git status"
