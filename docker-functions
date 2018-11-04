@@ -321,6 +321,7 @@ chromium-headless() {
 eyewitness() {
   docker run \
     --rm \
+    --net host \
     -it \
     -v ${PWD}:/tmp/EyeWitness \
     eyewitness \
