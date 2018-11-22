@@ -327,3 +327,12 @@ eyewitness() {
     eyewitness \
     --headless "$@"
 }
+
+# nikto
+nikto() {
+  docker run \
+    --rm \
+    --net host \
+    -it \
+    nikto "$@"
+}
