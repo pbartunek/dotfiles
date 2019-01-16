@@ -51,7 +51,7 @@ _repos-action() {
 
   cd ~/files
   for repo in $repos; do
-    if [ -d $repo ]; then
+    if [[ -d $repo && -d "${repo}/.git" ]]; then
       cd $repo
       $1 $repo
       cd ..
