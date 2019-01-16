@@ -8,8 +8,6 @@ alias - -="cd -"
 alias "ll"="ls -lah"
 alias "ls=ls -h"
 
-df="df -h"
-
 # git
 alias g=git
 alias gs="git status"
@@ -31,3 +29,8 @@ alias nmap-search="~/files/scripts/nmap-search.rb"
 
 # less
 alias less="less -R"
+
+# other
+df="df -h"
+bc="bc -l"
+
