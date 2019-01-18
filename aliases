@@ -24,13 +24,13 @@ alias di="docker images"
 alias feh='feh -B white --action1 "echo %N | tee -a files.log"'
 
 # Grep
-alias grep="grep --color=auto"
-alias nmap-search="~/files/scripts/nmap-search.rb"
+alias grep='grep --color=auto'
+alias nmap-search='~/files/scripts/nmap-search.rb'
 
 # less
-alias less="less -R"
+alias less='less -R'
 
 # other
-df="df -h"
-bc="bc -l"
+alias df='df -h'
+alias bc='bc -l'
 
