@@ -346,3 +346,12 @@ inception() {
     -it \
     inception "$@"
 }
+
+# snallygaster
+snallygaster() {
+  docker run \
+    --rm \
+    --net host \
+    -it \
+    snallygaster snallygaster "$@"
+}
