@@ -138,3 +138,15 @@ function notes() {
     echo "notes directory not found"
   fi
 }
+
+# copy to clipboard
+
+function to-clipboard() {
+  local file=$1
+
+  if [[ -f $file ]]; then
+    xclip -sel cli $file
+  else
+    echo "File ${file} does not exist."
+  fi
+}
