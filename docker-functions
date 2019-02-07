@@ -336,3 +336,13 @@ nikto() {
     -it \
     nikto "$@"
 }
+
+# inception
+inception() {
+  docker run \
+    --rm \
+    --net host \
+    -v ${PWD}:/data \
+    -it \
+    inception "$@"
+}
