@@ -33,4 +33,4 @@ alias less='less -R'
 # other
 alias df='df -h'
 alias bc='bc -l'
-
+alias poweroff='/sbin/poweroff'
