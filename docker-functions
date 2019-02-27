@@ -14,65 +14,6 @@ delete_stopped() {
 
 # Docker wrappers
 
-webtest() {
-  local project=${1%/}
-  local project_dir="${HOME}/work/${project}"
-  local burp_ip
-
-  if [[ "$project" == "" ]]; then
-    echo "You need to specify project name!"
-    echo "Usage: $0 project_name"
-    return
-  elif [[ ! "$project" =~ ^[a-zA-Z0-9_.-]+$ ]]; then
-    echo "Invalid project name, only [a-zA-Z0-9_.-] characters are allowed!"
-    return
-  fi 
-
-  # create firefox directory
-  if [ ! -d $project_dir/.mozilla ]; then
-    echo "creating project directory"
-    mkdir -p $project_dir/.mozilla
-    mkdir -p $project_dir/Downloads
-    echo "copying firefox profile"
-    cp -r ~/files/FirefoxSettings/* $project_dir/.mozilla/
-  fi
-
-  # copy BurpSuite preferences on first run
-  if [ ! -d $project_dir/.BurpSuite ]; then
-    cp -r ~/files/BurpSettings/BurpSuite $project_dir/.BurpSuite
-    cp -r ~/files/BurpSettings/java $project_dir/.java 
-  fi
-
-  cd $project_dir
-
-  delete_stopped "webtest-firefox-${project}"
-
-  docker run -d \
-    --cpuset-cpus 0 \
-    --memory 3gb \
-    --net host \
-    -v /etc/localtime:/etc/localtime:ro \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v /dev/shm:/dev/shm \
-    -v /etc/hosts:/etc/hosts:ro \
-    -v ${HOME}/files/tools:/data/tools \
-    -v $project_dir:/data/project \
-    -v $project_dir/.BurpSuite:/home/webtest/.BurpSuite \
-    -v $project_dir/.java:/home/webtest/.java \
-    -v $project_dir/Downloads:/home/webtest/Downloads \
-    -v $project_dir/.mozilla:/home/webtest/.mozilla \
-    --device /dev/snd \
-    --device /dev/dri \
-    --device /dev/bus/usb \
-    -e DISPLAY=$DISPLAY \
-    --name "webtest-firefox-${project}" \
-    -h "webtest-firefox-${project}" \
-    webtest-firefox
-}
-# autocompletion for webtest-firefox
-compdef '_files -/ -W ~/work' webtest-firefox
-
-
 webtest-chrome() {
   local project=${1%/}
   local project_dir="${HOME}/work/${project}"
@@ -167,51 +108,6 @@ burpfree() {
 
   # get burp container IP address
   echo "Container IP address: " $(docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' 'burp')
-}
-
-chrome() {
-  delete_stopped chrome
-
-  docker run -d \
-    --cpuset-cpus 0 \
-    --memory 1gb \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -e DISPLAY=unix$DISPLAY \
-    -v $HOME/Downloads:/home/chrome/Downloads \
-    -v $HOME/containers/chrome/.config:/home/chrome/.config \
-    --security-opt seccomp=$HOME/containers/chrome/chrome.json \
-    --device /dev/snd \
-    --device /dev/dri \
-    -v /dev/shm:/dev/shm \
-    --name chrome \
-    -h chrome \
-    chrome
-}
-
-firefox() {
-  delete_stopped firefox
-
-  mkdir -p "${HOME}/containers/firefox/.cache"
-  mkdir -p "${HOME}/containers/firefox/.mozilla"
-  mkdir -p "${HOME}/Downloads"
-  docker run -d \
-    --user browser:browser \
-    --memory 1gb \
-    --net host \
-    --cpuset-cpus 0 \
-    -v /etc/localtime:/etc/localtime:ro \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v "${HOME}/containers/firefox/.cache:/home/browser/.cache" \
-    -v "${HOME}/containers/firefox/.mozilla:/home/browser/.mozilla" \
-    -v "${HOME}/Downloads:/home/browser/Downloads" \
-    -e "DISPLAY=unix${DISPLAY}" \
-    -e GDK_SCALE \
-    -e GDK_DPI_SCALE \
-    --device /dev/snd \
-    --device /dev/dri \
-    --name firefox \
-    -h firefox \
-    firefox "$@"
 }
 
 # kali linux

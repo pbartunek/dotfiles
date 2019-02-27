@@ -1,5 +1,43 @@
 # set syntax=bash
 
+webtest() {
+  local project=${1%/}
+  local project_dir="${HOME}/work/${project}"
+  local burp_ip
+
+  if [[ "$project" == "" ]]; then
+    echo "You need to specify project name!"
+    echo "Usage: $0 project_name"
+    return
+  elif [[ ! "$project" =~ ^[a-zA-Z0-9_.-]+$ ]]; then
+    echo "Invalid project name, only [a-zA-Z0-9_.-] characters are allowed!"
+    return
+  fi 
+
+  # create firefox directory
+  if [ ! -d $project_dir/.mozilla ]; then
+    echo "creating project directory"
+    mkdir -p $project_dir/.mozilla
+    mkdir -p $project_dir/Downloads
+    echo "copying firefox profile"
+    cp -r ~/files/FirefoxSettings/* $project_dir/.mozilla/
+  fi
+
+  cd $project_dir
+
+  firefox-esr --profile ${project_dir}/.mozilla/firefox/*.default &
+  if [ -f ${project_dir}/project.burp ]; then
+    BurpSuitePro \
+      --project-file=${project_dir}/project.burp 2> /dev/null &
+  else
+    BurpSuitePro \
+      --config-file=${HOME}/files/tools/config_files/burp_project.json \
+      --project-file=${project_dir}/project.burp 2> /dev/null &
+  fi
+}
+# autocompletion for webtest-firefox
+compdef '_files -/ -W ~/work' webtest-firefox
+
 # print screen
 # requirements: maim, slop, zenity
 prtscr() {
