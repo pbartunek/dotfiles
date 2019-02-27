@@ -67,8 +67,8 @@ webtest-chrome() {
     -h "webtest-${project}" \
     webtest
 }
-# autocompletion for webtest
-compdef '_files -/ -W ~/work' webtest
+# autocompletion for webtest-chrome
+compdef '_files -/ -W ~/work' webtest-chrome
 
 burp() {
   # copy BurpSuite preferences on first run

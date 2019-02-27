@@ -35,8 +35,8 @@ webtest() {
       --project-file=${project_dir}/project.burp 2> /dev/null &
   fi
 }
-# autocompletion for webtest-firefox
-compdef '_files -/ -W ~/work' webtest-firefox
+# autocompletion for webtest
+compdef '_files -/ -W ~/work' webtest
 
 # print screen
 # requirements: maim, slop, zenity
