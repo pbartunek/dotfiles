@@ -24,7 +24,7 @@ webtest() {
 
   cd $project_dir
 
-  firefox-esr --profile ${project_dir}/.mozilla/firefox/*.default &
+  firefox-esr --profile ${project_dir}/.mozilla/firefox/*.default 2> /dev/null &
   if [ -f ${project_dir}/project.burp ]; then
     BurpSuitePro \
       --project-file=${project_dir}/project.burp 2> /dev/null &
