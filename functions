@@ -3,7 +3,6 @@
 webtest() {
   local project=${1%/}
   local project_dir="${HOME}/work/${project}"
-  local burp_ip
 
   if [[ "$project" == "" ]]; then
     echo "You need to specify project name!"
