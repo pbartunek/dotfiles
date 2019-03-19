@@ -24,14 +24,14 @@ webtest() {
 
   cd $project_dir
 
-  firefox-esr --profile ${project_dir}/.mozilla/firefox/*.default 2> /dev/null &
+  firefox-esr --profile ${project_dir}/.mozilla/firefox/*.default &> /dev/null &
   if [ -f ${project_dir}/project.burp ]; then
     BurpSuitePro \
-      --project-file=${project_dir}/project.burp 2> /dev/null &
+      --project-file=${project_dir}/project.burp &> /dev/null &
   else
     BurpSuitePro \
       --config-file=${HOME}/files/tools/config_files/burp_project.json \
-      --project-file=${project_dir}/project.burp 2> /dev/null &
+      --project-file=${project_dir}/project.burp &> /dev/null &
   fi
 }
 # autocompletion for webtest
