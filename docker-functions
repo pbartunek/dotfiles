@@ -145,7 +145,7 @@ gobuster() {
   docker run --rm \
     -v "${HOME}/files/tools/wordlists/:/wordlists" \
     --net host \
-    gobuster -e -k -l -s 200,204,301,302,307,500,501 -fw "$@" | tee -a gobuster.log
+    gobuster -e -k -l -s 200,204,301,307,500,501 -fw "$@" | tee -a gobuster.log
 }
 # autocompletion for gobuster
 compdef '_gobuster' gobuster
