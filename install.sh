@@ -20,12 +20,6 @@ if [ "$(uname -s)" == "Linux" ]; then
     ln -s ${PWD}/${c}/config ${HOME}/.config/${c}/config
   done
   echo
-
-  # get seccomp profile for containers running chrome/chromium 
-  if [ ! -f ${HOME}/containers/chrome/chrome.json ]; then
-    mkdir -p ${HOME}/containers/chrome
-    wget https://raw.githubusercontent.com/jfrazelle/dotfiles/master/etc/docker/seccomp/chrome.json -O ${HOME}/containers/chrome/chrome.json
-  fi
 fi
 
 # configure git
