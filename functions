@@ -21,7 +21,7 @@ webtest() {
 
   # create initial files
   if [[ ! -f ${project_dir}/notes.md ]]; then
-    echo "# ${project}\n\n## access\n\n\n## notes\n\n\n## TODO\n\n" > notes.md
+    echo "# ${project}\n\n## access\n\n\n## notes\n\n\n## findings\n\n\n## TODO\n\n" > notes.md
   fi
 
   firefox-esr &> /dev/null &
