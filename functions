@@ -24,15 +24,17 @@ webtest() {
     echo "# ${project}\n\n## access\n\n\n## notes\n\n\n## findings\n\n\n## TODO\n\n" > notes.md
   fi
 
-  firefox-esr &> /dev/null &
+  firefox-esr 2> /dev/null &
   if [ -f ${project_dir}/project.burp ]; then
     BurpSuitePro \
-      --project-file=${project_dir}/project.burp &> /dev/null &
+      --project-file=${project_dir}/project.burp 2> /dev/null &
   else
     BurpSuitePro \
       --config-file=${HOME}/files/tools/config_files/burp_project.json \
-      --project-file=${project_dir}/project.burp &> /dev/null &
+      --project-file=${project_dir}/project.burp 2> /dev/null &
   fi
+
+  screen -S ${project} -t vim vim notes.md
 }
 # autocompletion for webtest
 compdef '_files -/ -W ~/work' webtest
