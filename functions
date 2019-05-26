@@ -189,3 +189,19 @@ function to-clipboard() {
     echo "File ${file} does not exist."
   fi
 }
+
+# autocompletion for gobuster
+compdef '_gobuster' gobuster
+_gobuster() {
+    integer ret=1
+    local -a args
+    args+=(
+        '-u[URL]:url:(http\:// https\://)'
+        '-w[wordlist]:file:_files -/ -W ~/files/tools/wordlists'
+        '-p[Proxy]:string'
+        '-h[help]'
+    )
+    _arguments $args[@] && ret=0
+    return ret
+}
+
