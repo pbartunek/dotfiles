@@ -140,14 +140,12 @@ kali() {
 # autocompletion for kali
 compdef '_files -/ -W ~/work' kali
 
-
 gobuster-docker() {
   docker run --rm \
     -v "${HOME}/files/tools/wordlists/:/wordlists" \
     --net host \
     gobuster -e -k -l -s 200,204,301,307,500,501 -fw "$@" | tee -a gobuster.log
 }
-
 
 # website screenshots
 scraper() {
@@ -218,5 +216,16 @@ nikto-docker() {
     --net host \
     -it \
     nikto "$@"
+}
+
+# empire
+empire() {
+  docker run \
+    --rm \
+    -ti \
+    --net host \
+    -v ${PWD}:/data \
+    -w /opt/Empire \
+    empireproject/empire /opt/Empire/empire
 }
 
