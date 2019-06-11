@@ -1,5 +1,13 @@
 # set syntax=bash
 
+_init-files() {
+  local project_dir=$1
+
+  if [[ ! -f ${project_dir}/notes.md ]]; then
+    echo "# ${project}\n\n## access\n\n\n## notes\n\n\n## findings\n\n\n## TODO\n\n" > notes.md
+  fi
+}
+
 webtest() {
   local project=${1%/}
   local project_dir="${HOME}/work/${project}"
@@ -20,9 +28,7 @@ webtest() {
   cd $project_dir
 
   # create initial files
-  if [[ ! -f ${project_dir}/notes.md ]]; then
-    echo "# ${project}\n\n## access\n\n\n## notes\n\n\n## findings\n\n\n## TODO\n\n" > notes.md
-  fi
+  _init-files($project_dir)
 
   firefox-esr 2> /dev/null &
   if [ -f ${project_dir}/project.burp ]; then
@@ -122,7 +128,18 @@ work() {
   if [ -z "$dir" ]; then
     cd "${HOME}/work"
   else
-    cd "${HOME}/work/${dir}"
+    local project=${1%/}
+    local project_dir="${HOME}/work/${project}"
+
+    if [[ ! -d ${project_dir} ]]; then
+      mkdir -p ${project_dir}/scans
+    fi
+    cd $project_dir
+
+    # create initial files
+    _init-files "$project_dir"
+
+    screen -S ${project} -t vim vim notes.md
   fi
 }
 compdef '_files -/ -W ~/work' work

@@ -1,4 +1,3 @@
-defshell -zsh
 hardstatus alwayslastline 
 startup_message off 
 hardstatus string '%{wk}%?%-Lw%?%{=b kR}(%{W}%n %t%?(%u)%?%{=b kR})%{= w}%?%+Lw%?%? %{g}]%{W}'
