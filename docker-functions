@@ -147,6 +147,22 @@ gobuster-docker() {
     gobuster -e -k -l -s 200,204,301,307,500,501 -fw "$@" | tee -a gobuster.log
 }
 
+# autocompletion for gobuster
+compdef '_gobuster-docker' gobuster-docker
+_gobuster-docker() {
+    integer ret=1
+    local -a args
+    args+=(
+        '-u[URL]:url:(http\:// https\://)'
+        '-w[wordlist]:file:_files -/ -W ~/files/tools/wordlists'
+        '-p[Proxy]:string'
+        '-h[help]'
+    )
+    _arguments $args[@] && ret=0
+    return ret
+}
+
+
 # website screenshots
 scraper() {
   delete_stopped scraper
