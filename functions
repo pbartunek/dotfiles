@@ -28,7 +28,7 @@ webtest() {
   cd $project_dir
 
   # create initial files
-  _init-files($project_dir)
+  _init-files $project_dir
 
   firefox-esr 2> /dev/null &
   if [ -f ${project_dir}/project.burp ]; then
