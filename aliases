@@ -35,4 +35,4 @@ alias df='df -h'
 alias bc='bc -l'
 alias poweroff='/sbin/poweroff'
 
-alias gobuster='gobuster -e -k -l -s 200,204,307,500,501,502 -fw'
+alias gobuster='gobuster dir -e -k -l -s 200,204,307,500,501,502 -fw'
