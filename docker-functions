@@ -148,3 +148,10 @@ empire() {
 serv-nginx() {
   docker run -ti --rm --net host -v "${PWD}:/srv/data" nginx:latest
 }
+
+# webdav
+
+serv-webdav() {
+  docker run --rm -ti -p 80:80 -v "${PWD}:/srv/data/share" webdav
+}
+
