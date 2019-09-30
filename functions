@@ -207,3 +207,23 @@ function to-clipboard() {
   fi
 }
 
+# gobuster
+gbstr() {
+  gobuster dir -e -k -l -s 200,204,307,500,501,502 --wildcard "$@" | tee -a gobuster.log
+}
+
+# autocompletion for gobuster
+compdef '_gbstr' gbstr
+_gbstr() {
+    integer ret=1
+    local -a args
+    args+=(
+        '-u[URL]:url:(http\:// https\://)'
+        '-w[wordlist]:file:_files -/ -W ~/files/tools/wordlists'
+        '-p[Proxy]:string'
+        '-h[help]'
+    )
+    _arguments $args[@] && ret=0
+    return ret
+}
+
