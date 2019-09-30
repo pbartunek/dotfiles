@@ -19,20 +19,18 @@ alias gl="git log"
 # docker
 alias dcleanup="docker system prune -f"
 alias di="docker images"
-
-# feh
-alias feh='feh -B white --action1 "echo %N | tee -a files.log" --action2 "rm %N"'
+alias dshell="docker run -ti --rm --entrypoint=/bin/bash"
+alias dsh="docker run -ti --rm --entrypoint=/bin/sh"
 
 # Grep
 alias grep='grep --color=auto'
 alias nmap-search='~/files/scripts/nmap-search.rb'
 
-# less
-alias less='less -R'
-
 # other
+alias less='less -R'
 alias df='df -h'
 alias bc='bc -l'
 alias poweroff='/sbin/poweroff'
-
+alias feh='feh -B white --action1 "echo %N | tee -a files.log" --action2 "rm %N"'
 alias gobuster='gobuster dir -e -k -l -s 200,204,307,500,501,502 -fw'
+

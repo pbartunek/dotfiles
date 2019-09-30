@@ -12,87 +12,17 @@ delete_stopped() {
   fi
 }
 
+function dshellpwd() {
+  dirname=${PWD##*/}
+  docker run --rm -ti --entrypoint=/bin/bash -v "${PWD}:/${dirname}" -w "/$dirname" "$@"
+}
+
+function dshpwd() {
+  dirname=${PWD##*/}
+  docker run --rm -ti --entrypoint=/bin/sh -v "${PWD}:/${dirname}" -w "/$dirname" "$@"
+}
+
 # Docker wrappers
-
-webtest-chrome() {
-  local project=${1%/}
-  local project_dir="${HOME}/work/${project}"
-  local burp_ip
-
-  if [[ "$project" == "" ]]; then
-    echo "You need to specify project name!"
-    echo "Usage: $0 project_name"
-    return
-  elif [[ ! "$project" =~ ^[a-zA-Z0-9_.-]+$ ]]; then
-    echo "Invalid project name, only [a-zA-Z0-9_.-] characters are allowed!"
-    return
-  fi 
-
-  # create chromium directories
-  if [ ! -d $project_dir/.config/chromium ]; then
-    mkdir -p $project_dir/.config/chromium
-    mkdir -p $project_dir/Downloads
-  fi
-
-  # copy BurpSuite preferences on first run
-  if [ ! -d $project_dir/.BurpSuite ]; then
-    cp -r ~/files/BurpSettings/BurpSuite $project_dir/.BurpSuite
-    cp -r ~/files/BurpSettings/java $project_dir/.java 
-  fi
-
-  cd $project_dir
-
-  delete_stopped "webtest-${project}"
-
-  docker run -d \
-    --cpuset-cpus 0 \
-    --memory 3gb \
-    --net host \
-    -v /etc/localtime:/etc/localtime:ro \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v /dev/shm:/dev/shm \
-    -v /etc/hosts:/etc/hosts:ro \
-    -v ${HOME}/files/tools:/data/tools \
-    -v $project_dir:/data/project \
-    -v $project_dir/.BurpSuite:/home/webtest/.BurpSuite \
-    -v $project_dir/.java:/home/webtest/.java \
-    -v $project_dir/Downloads:/home/webtest/Downloads \
-    -v $project_dir/.config/chromium:/home/webtest/.config/chromium \
-    --security-opt seccomp:$HOME/containers/chrome/chrome.json \
-    --device /dev/snd \
-    --device /dev/dri \
-    --device /dev/bus/usb \
-    -e DISPLAY=$DISPLAY \
-    --name "webtest-${project}" \
-    -h "webtest-${project}" \
-    webtest
-}
-# autocompletion for webtest-chrome
-compdef '_files -/ -W ~/work' webtest-chrome
-
-burp() {
-  # copy BurpSuite preferences on first run
-  if [ ! -d $HOME/containers/burp/.BurpSuite ]; then
-    mkdir -p $HOME/containers/burp
-    cp -r ~/files/BurpSettings/BurpSuite $project_dir/.BurpSuite
-    cp -r ~/files/BurpSettings/java $project_dir/.java 
-  fi
-
-  delete_stopped burppro
-
-  docker run -d \
-    --cpuset-cpus 0 \
-    --memory 2gb \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -v $HOME/containers/burp/:/data/project \
-    -e DISPLAY=unix$DISPLAY \
-    --name burppro \
-    -h burppro \
-    burppro
-
-  # get burp container IP address
-  echo "Container IP address: " $(docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' 'burppro')
-}
 
 burpfree() {
   delete_stopped burp
@@ -140,29 +70,6 @@ kali() {
 # autocompletion for kali
 compdef '_files -/ -W ~/work' kali
 
-gobuster-docker() {
-  docker run --rm \
-    -v "${HOME}/files/tools/wordlists/:/wordlists" \
-    --net host \
-    gobuster -e -k -l -s 200,204,301,307,500,501 -fw "$@" | tee -a gobuster.log
-}
-
-# autocompletion for gobuster
-compdef '_gobuster-docker' gobuster-docker
-_gobuster-docker() {
-    integer ret=1
-    local -a args
-    args+=(
-        '-u[URL]:url:(http\:// https\://)'
-        '-w[wordlist]:file:_files -/ -W ~/files/tools/wordlists'
-        '-p[Proxy]:string'
-        '-h[help]'
-    )
-    _arguments $args[@] && ret=0
-    return ret
-}
-
-
 # website screenshots
 scraper() {
   delete_stopped scraper
@@ -205,15 +112,6 @@ amap-nmap() {
 }
 compdef '_files -g "*.gnmap"' amap-nmap
 
-# headless chromium
-chromium-headless() {
-  docker run -d \
-    -v ${PWD}:/workdir \
-    --net host \
-    --security-opt seccomp:$HOME/containers/chrome/chrome.json \
-    chromium-headless "$@"
-}
-
 # eyewitness
 eyewitness() {
   docker run \
@@ -243,5 +141,17 @@ empire() {
     -v ${PWD}:/data \
     -w /opt/Empire \
     empireproject/empire /opt/Empire/empire
+}
+
+# nginx server
+
+serv-nginx() {
+  docker run -ti --rm --net host -v "${PWD}:/srv/data" nginx:latest
+}
+
+# webdav
+
+serv-webdav() {
+  docker run --rm -ti -p 80:80 -v "${PWD}:/srv/data/share" webdav
 }
 
