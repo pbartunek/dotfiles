@@ -155,3 +155,11 @@ serv-webdav() {
   docker run --rm -ti -p 80:80 -v "${PWD}:/srv/data/share" webdav
 }
 
+# http file dropper
+
+serv-dropper() {
+  dir=$PWD/loot
+  mkdir -p $dir
+  chmod o+w $dir
+  docker run --rm -ti -v $dir:/data file-dropper
+}
