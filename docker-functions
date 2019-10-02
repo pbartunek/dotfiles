@@ -156,10 +156,14 @@ serv-webdav() {
 }
 
 # http file dropper
-
 serv-dropper() {
   dir=$PWD/loot
   mkdir -p $dir
   chmod o+w $dir
   docker run --rm -ti -v $dir:/data file-dropper
+}
+
+# smb server
+serv-smb() {
+  docker run --rm -ti --net host -v $PWD:/share impacket smbserver.py share /share
 }
