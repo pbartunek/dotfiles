@@ -39,3 +39,5 @@ source ${HOME}/.docker-functions
 source ${HOME}/.git-functions
 source ${HOME}/.functions
 source ${HOME}/.aliases
+
+export PATH="${HOME}:${PATH}"

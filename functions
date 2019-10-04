@@ -31,16 +31,18 @@ webtest() {
   _init-files $project_dir
 
   firefox-esr 2> /dev/null &
-  if [ -f ${project_dir}/project.burp ]; then
+  if [[ -f ${project_dir}/project.burp || ! -f ${HOME}/files/tools/config_files/burp_project.json ]]; then
+    echo "burp project exists"
     BurpSuitePro \
-      --project-file=${project_dir}/project.burp 2> /dev/null &
+      --project-file=${project_dir}/project.burp
   else
+    echo "burp project doesn't exist"
     BurpSuitePro \
       --config-file=${HOME}/files/tools/config_files/burp_project.json \
-      --project-file=${project_dir}/project.burp 2> /dev/null &
+      --project-file=${project_dir}/project.burp
   fi
 
-  screen -S ${project} -t vim vim notes.md
+  #screen -S ${project} -t vim vim notes.md
 }
 # autocompletion for webtest
 compdef '_files -/ -W ~/work' webtest
@@ -144,44 +146,6 @@ work() {
 }
 compdef '_files -/ -W ~/work' work
 
-gen-html-report() {
-
-exec 1<>report.html
-cat <<-HTML
-<html>
-  <head>
-    <title></title>
-    <style>
-    table, td, tr {
-      border: 1px solid black;
-    }
-    </style>
-  </head>
-  <body>
-  <table>
-HTML
-for image in $(ls *.png); do
-  cat <<-HTML
-    <tr>
-      <td>${image}</td>
-      <td><img src="./${image}" width="800px" /></td>
-    </tr>
-HTML
-done
-cat <<-HTML
-  </table>
-  </body>
-</html>
-HTML
-
-exec &>/dev/tty
-echo "done"
-}
-
-function nmap-open() {
-  grep -v closed $1 | grep -v filtered
-}
-
 # notes
 function notes() {
   if [[ -d ${HOME}/files/notes ]]; then
@@ -196,7 +160,6 @@ function notes() {
 }
 
 # copy to clipboard
-
 function to-clipboard() {
   local file=$1
 
