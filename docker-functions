@@ -165,5 +165,5 @@ serv-dropper() {
 
 # smb server
 serv-smb() {
-  docker run --rm -ti --net host -v $PWD:/share impacket smbserver.py share /share
+  docker run --rm -ti --net host -v $PWD:/share impacket smbserver.py -smb2support share /share
 }
