@@ -42,7 +42,7 @@ webtest() {
       --project-file=${project_dir}/project.burp 2> /dev/null &
   fi
 
-  #screen -S ${project} -t vim vim notes.md
+  screen -S ${project} -t vim vim notes.md
 }
 # autocompletion for webtest
 compdef '_files -/ -W ~/work' webtest
