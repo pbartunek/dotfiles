@@ -34,15 +34,15 @@ webtest() {
   if [[ -f ${project_dir}/project.burp || ! -f ${HOME}/files/tools/config_files/burp_project.json ]]; then
     echo "burp project exists"
     BurpSuitePro \
-      --project-file=${project_dir}/project.burp
+      --project-file=${project_dir}/project.burp 2> /dev/null &
   else
     echo "burp project doesn't exist"
     BurpSuitePro \
       --config-file=${HOME}/files/tools/config_files/burp_project.json \
-      --project-file=${project_dir}/project.burp
+      --project-file=${project_dir}/project.burp 2> /dev/null &
   fi
 
-  #screen -S ${project} -t vim vim notes.md
+  screen -S ${project} -t vim vim notes.md
 }
 # autocompletion for webtest
 compdef '_files -/ -W ~/work' webtest
