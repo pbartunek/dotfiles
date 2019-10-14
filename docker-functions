@@ -158,7 +158,7 @@ serv-dropper() {
   dir=$PWD/loot
   mkdir -p $dir
   chmod o+w $dir
-  docker run --rm -ti -v $dir:/data file-dropper
+  docker run --rm --net host -ti -v $dir:/data file-dropper
 }
 
 # smb server
