@@ -41,3 +41,5 @@ source ${HOME}/.functions
 source ${HOME}/.aliases
 
 export PATH="${HOME}:${PATH}"
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
