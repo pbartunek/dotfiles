@@ -6,9 +6,6 @@ prompt adam1
 
 setopt histignorealldups sharehistory
 
-# Use emacs keybindings even if our EDITOR is set to vi
-bindkey -e
-
 # Keep 5000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=5000
 SAVEHIST=5000
