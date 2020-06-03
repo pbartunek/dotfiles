@@ -36,6 +36,7 @@ source ${HOME}/.docker-functions
 source ${HOME}/.git-functions
 source ${HOME}/.functions
 source ${HOME}/.aliases
+source ${HOME}/.grc.zsh
 
 export PATH="${HOME}:${PATH}"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
