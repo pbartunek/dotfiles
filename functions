@@ -123,6 +123,17 @@ format-xml() {
   cat $1 | python -c 'import sys;import xml.dom.minidom;s=sys.stdin.read();print xml.dom.minidom.parseString(s).toprettyxml()'
 }
 
+# format text file with ip addresses and network masks
+format-scope() {
+  if [ -z "$1" ]; then
+    echo "Usage: $0 file"
+    return
+  fi
+
+  sed -i -E 's@/([0-9]{2})@/\1\n@g' $1;
+  sed -i -e '/^$/d' $1;
+}
+
 #
 work() {
   local dir=$1
