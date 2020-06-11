@@ -6,7 +6,6 @@ alias - -="cd -"
 
 # ls
 alias "ll"="ls -lah"
-alias "ls"="ls -h"
 
 # git
 alias g=git
