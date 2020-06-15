@@ -2,7 +2,7 @@
 
 # Helper functions
 
-delete_stopped() {
+delete-stopped() {
   local container=$1
   local state="false"
 
@@ -23,23 +23,7 @@ function dshpwd() {
 }
 
 # Docker wrappers
-
-burpfree() {
-  delete_stopped burp
-
-  docker run -d \
-    --cpuset-cpus 0 \
-    --memory 2gb \
-    -v /tmp/.X11-unix:/tmp/.X11-unix \
-    -e DISPLAY=unix$DISPLAY \
-    --name burp \
-    -h burp \
-    burp
-
-  # get burp container IP address
-  echo "Container IP address: " $(docker inspect --format '{{.NetworkSettings.Networks.bridge.IPAddress}}' 'burp')
-}
-
+#
 # kali linux
 kali() {
   local project=$1
@@ -69,32 +53,6 @@ kali() {
 }
 # autocompletion for kali
 compdef '_files -/ -W ~/work' kali
-
-# website screenshots
-scraper() {
-  delete_stopped scraper
-  
-  args=$*
-  if [[ $1 == "-p" ]]; then
-    proxy='http://127.0.0.1:8080'
-    args=${*:2}
-  fi
-
-  docker run -d \
-    --net host \
-    -v ${PWD}:/data/workdir \
-    -e "PROXY=$proxy" \
-    scraper "$args"
-}
-#
-# headless chromium scraper
-scraper-chromium() {
-  docker run -d \
-    -v ${PWD}:/workdir \
-    --net host \
-    --security-opt seccomp:$HOME/containers/chrome/chrome.json \
-    scraper-chromium "$@"
-}
 
 # amap
 amap() {
@@ -141,6 +99,18 @@ empire() {
     -v ${PWD}:/data \
     -w /opt/Empire \
     empireproject/empire /opt/Empire/empire
+}
+
+photon() {
+  docker run \
+  --rm \
+  -ti \
+  -v "$PWD:/data" \
+  --user 1000:1000 \
+  --name photon \
+  photon:latest \
+  -o /data/photon.out \
+  "$@"
 }
 
 # nginx server

@@ -193,7 +193,7 @@ _gbstr() {
     local -a args
     args+=(
         '-u[URL]:url:(http\:// https\://)'
-        '-w[wordlist]:file:_files -/ -W ~/files/tools/wordlists'
+        '-w[wordlist]:file:_files -W ~/files/tools/wordlists'
         '-p[Proxy]:string'
         '-h[help]'
     )
