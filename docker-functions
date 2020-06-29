@@ -40,7 +40,7 @@ kali() {
 
   mkdir -p "${mount_point}/msf_loot"
 
-  delete_stopped $name
+  delete-stopped $name
 
   docker run -ti \
     --net host \
