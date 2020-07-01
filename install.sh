@@ -1,6 +1,6 @@
 #!/bin/bash
 
-echo "Installing dotfiles:"
+echo -n "[+] Installing dotfiles: "
 files=$(find . -maxdepth 1 -type f -not \( -iname '*.sh' -o -iname '*.md' -o -iname '\.*' \) -exec basename {} \;)
 for f in $files; do
   echo -n "${f} "
@@ -9,7 +9,7 @@ for f in $files; do
 done
 
 if [ "$(uname -s)" == "Linux" ]; then
-  echo -e "\nInstalling: "
+  echo -e -n "\n[+] Installing configs: "
   # install i3 and rofi configs
   for c in i3 rofi; do
     echo -n "${c} "
@@ -19,11 +19,18 @@ if [ "$(uname -s)" == "Linux" ]; then
     fi
     ln -s ${PWD}/${c}/config ${HOME}/.config/${c}/config
   done
-  echo
 fi
 
+# install ssh config
+echo -e "ssh"
+rm ${HOME}/.ssh/config
+ln -s ${PWD}/ssh/config ${HOME}/.ssh/config
+
+echo "[+] Configuring Git."
 # configure git
 git config --global core.excludesfile ~/.gitignore
 git config --global core.editor vim
-
 git config --global help.autocorrect 1
+git config --global pull.rebase false
+
+echo -e "[+] Done\n"

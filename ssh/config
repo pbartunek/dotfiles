@@ -1,0 +1,4 @@
+IPQoS lowdelay
+
+Host *
+    ServerAliveInterval 60
