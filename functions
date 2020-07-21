@@ -201,3 +201,7 @@ _gbstr() {
     return ret
 }
 
+function set-window-title {
+  title=$*
+  echo -ne "\033]0;$title\007"
+}
