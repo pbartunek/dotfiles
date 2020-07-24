@@ -101,18 +101,6 @@ empire() {
     empireproject/empire /opt/Empire/empire
 }
 
-photon() {
-  docker run \
-  --rm \
-  -ti \
-  -v "$PWD:/data" \
-  --user 1000:1000 \
-  --name photon \
-  photon:latest \
-  -o /data/photon.out \
-  "$@"
-}
-
 # nginx server
 serv-nginx() {
   docker run -ti --rm --net host -v "${PWD}:/srv/data" nginx:latest
@@ -135,3 +123,4 @@ serv-dropper() {
 serv-smb() {
   docker run --rm -ti --net host -v $PWD:/share impacket smbserver.py -smb2support share /share $@
 }
+

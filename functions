@@ -23,6 +23,7 @@ webtest() {
 
   if [[ ! -d ${project_dir} ]]; then
     mkdir -p ${project_dir}/scans
+    mkdir -p ${project_dir}/findings
   fi
 
   cd $project_dir
