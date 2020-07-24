@@ -22,7 +22,6 @@ alias dshell="docker run -ti --rm --entrypoint=/bin/bash"
 alias dsh="docker run -ti --rm --entrypoint=/bin/sh"
 
 # pt tools
-#alias gobuster='gobuster dir -e -k -l -s 200,204,307,500,501,502 -fw'
 alias nmap-parse='~/files/scripts/nmap-parse.rb'
 alias nmap-scan='grc ~/files/scripts/nmap-scan.sh'
 alias aquatone='aquatone -ports xlarge -threads 20 -http-timeout 2000 '
