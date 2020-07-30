@@ -31,7 +31,12 @@ nnoremap <Down> :echoe "Use j"<CR>
 let g:netrw_liststyle=3
 
 " folding
-set foldmethod=marker
-set foldmarker={,}
-set foldlevel=20
-set foldlevelstart=20
+"set foldmethod=marker
+"set foldmarker={,}
+"set foldlevel=20
+"set foldlevelstart=20
+
+" markdown config: https://github.com/plasticboy/vim-markdown
+let g:vim_markdown_toc_autofit = 1
+let g:vim_markdown_folding_level = 2
+
