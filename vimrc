@@ -1,3 +1,18 @@
+call plug#begin('~/.vim/plugged')
+
+" Navigate and manipulate files in a tree view.
+Plug 'scrooloose/nerdtree'
+
+" Dim paragraphs above and below the active paragraph.
+Plug 'junegunn/limelight.vim'
+
+" Distraction free writing by removing UI elements and centering everything.
+Plug 'junegunn/goyo.vim'
+
+Plug 'tpope/vim-markdown'
+
+call plug#end()
+
 filetype plugin indent on " recognize file types
 syntax on                 " enable syntax highlighting
 
@@ -30,13 +45,30 @@ nnoremap <Down> :echoe "Use j"<CR>
 
 let g:netrw_liststyle=3
 
-" folding
-"set foldmethod=marker
-"set foldmarker={,}
-"set foldlevel=20
-"set foldlevelstart=20
-
 " markdown config: https://github.com/plasticboy/vim-markdown
 let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_folding_level = 2
 
+" Color name (:help cterm-colors) or ANSI code
+let g:limelight_conceal_ctermfg = 'gray'
+let g:limelight_conceal_ctermfg = 240
+
+" Color name (:help gui-colors) or RGB color
+let g:limelight_conceal_guifg = 'DarkGray'
+let g:limelight_conceal_guifg = '#777777'
+
+" Default: 0.5
+let g:limelight_default_coefficient = 0.7
+
+" Number of preceding/following paragraphs to include (default: 0)
+let g:limelight_paragraph_span = 1
+
+" Beginning/end of paragraph
+"   When there's no empty line between the paragraphs
+"   and each paragraph starts with indentation
+"let g:limelight_bop = '^\s'
+"let g:limelight_eop = '\ze\n^\s'
+
+" Highlighting priority (default: 10)
+"   Set it to -1 not to overrule hlsearch
+let g:limelight_priority = -1
