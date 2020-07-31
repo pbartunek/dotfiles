@@ -21,16 +21,19 @@ if [ "$(uname -s)" == "Linux" ]; then
   done
 fi
 
-# install ssh config
 echo -e "ssh"
 rm ${HOME}/.ssh/config
 ln -s ${PWD}/ssh/config ${HOME}/.ssh/config
 
 echo "[+] Configuring Git."
-# configure git
 git config --global core.excludesfile ~/.gitignore
 git config --global core.editor vim
 git config --global help.autocorrect 1
 git config --global pull.rebase false
 
+echo "[+] Installing Vim-plug"
+curl -s -fLo ~/.vim/autoload/plug.vim --create-dirs \
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
 echo -e "[+] Done\n"
+
