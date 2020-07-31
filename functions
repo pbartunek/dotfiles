@@ -162,10 +162,11 @@ compdef '_files -/ -W ~/work' work
 function notes() {
   if [[ -d ${HOME}/files/notes ]]; then
     cd ${HOME}/files/notes;
-    screen -S notes -t server -d -m ./web.sh
-    sleep 1
-    screen -X screen -t vim vim files
-    screen -rd notes
+
+    tmux new-session -s notes -d './web.sh'
+    tmux new-window -t notes 'vim files'
+    tmux attach-session -t notes
+
   else
     echo "notes directory not found"
   fi
