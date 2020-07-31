@@ -43,7 +43,8 @@ webtest() {
       --project-file=${project_dir}/project.burp 2> /dev/null &
   fi
 
-  screen -S ${project} -t vim vim notes.md
+  tmux new-session -s ${project} -d 'vim notes.md'
+  tmux attach-session -t ${project}
 }
 # autocompletion for webtest
 compdef '_files -/ -W ~/work' webtest
@@ -153,7 +154,8 @@ work() {
     # create initial files
     _init-files "$project_dir"
 
-    screen -S ${project} -t vim vim notes.md
+    tmux new-session -s ${project} -d 'vim notes.md'
+    tmux attach-session -t ${project}
   fi
 }
 compdef '_files -/ -W ~/work' work
