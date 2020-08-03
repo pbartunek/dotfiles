@@ -3,7 +3,7 @@
 # pull git repos
 repos-pull() {
   pull() {
-    echo "pulling $1"
+    echo "[+] pulling $1"
     git pull
   }
   _repos-action pull
@@ -13,7 +13,7 @@ repos-pull() {
 repos-push() {
   push() {
     if [[ $(git status -b -s) =~ "ahead" ]]; then
-      echo "pushing $1"
+      echo "[+] pushing $1"
       git push
     fi
   }
