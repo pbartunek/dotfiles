@@ -9,7 +9,7 @@ Plug 'junegunn/limelight.vim'
 " Distraction free writing by removing UI elements and centering everything.
 Plug 'junegunn/goyo.vim'
 
-Plug 'tpope/vim-markdown'
+Plug 'plasticboy/vim-markdown'
 
 call plug#end()
 
@@ -37,11 +37,22 @@ set shiftwidth=2
 set expandtab
 set smartindent
 
+set nofoldenable
+
+set complete+=kspell
+set spell spelllang=en_us
+
 " disable arrow keys
 nnoremap <Left> :echoe "Use h"<CR>
 nnoremap <Right> :echoe "Use l"<CR>
 nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
+
+" auto spellcheck for markdown files
+autocmd BufRead,BufNewFile *.md setlocal spell
+
+" switch view to Goyo for markdown
+autocmd BufRead,BufNewFile *.md Goyo
 
 let g:netrw_liststyle=3
 
@@ -66,8 +77,8 @@ let g:limelight_paragraph_span = 1
 " Beginning/end of paragraph
 "   When there's no empty line between the paragraphs
 "   and each paragraph starts with indentation
-"let g:limelight_bop = '^\s'
-"let g:limelight_eop = '\ze\n^\s'
+let g:limelight_bop = '^\s'
+let g:limelight_eop = '\ze\n^\s'
 
 " Highlighting priority (default: 10)
 "   Set it to -1 not to overrule hlsearch
