@@ -22,7 +22,7 @@ if [ "$(uname -s)" == "Linux" ]; then
 fi
 
 echo -e "ssh"
-rm ${HOME}/.ssh/config
+rm ${HOME}/.ssh/config 2> /dev/null
 ln -s ${PWD}/ssh/config ${HOME}/.ssh/config
 
 echo "[+] Configuring Git."
