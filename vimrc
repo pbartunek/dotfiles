@@ -40,7 +40,6 @@ set smartindent
 set nofoldenable
 
 set complete+=kspell
-set spell spelllang=en_us
 
 " disable arrow keys
 nnoremap <Left> :echoe "Use h"<CR>
@@ -49,7 +48,7 @@ nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
 " auto spellcheck for markdown files
-autocmd BufRead,BufNewFile *.md setlocal spell
+autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_us
 
 " switch view to Goyo for markdown
 autocmd BufRead,BufNewFile *.md Goyo
