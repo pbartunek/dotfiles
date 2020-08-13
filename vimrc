@@ -9,11 +9,9 @@ Plug 'junegunn/limelight.vim'
 " Distraction free writing by removing UI elements and centering everything.
 Plug 'junegunn/goyo.vim'
 
-Plug 'plasticboy/vim-markdown'
-
 call plug#end()
 
-filetype plugin indent on " recognize file types
+filetype plugin on " recognize file types
 syntax on                 " enable syntax highlighting
 
 set encoding=utf-8
@@ -35,7 +33,6 @@ set nowritebackup
 set tabstop=2
 set shiftwidth=2
 set expandtab
-set smartindent
 
 set nofoldenable
 
@@ -55,10 +52,6 @@ autocmd BufRead,BufNewFile *.md setlocal spell
 autocmd BufRead,BufNewFile *.md Goyo
 
 let g:netrw_liststyle=3
-
-" markdown config: https://github.com/plasticboy/vim-markdown
-let g:vim_markdown_toc_autofit = 1
-let g:vim_markdown_folding_level = 2
 
 " Color name (:help cterm-colors) or ANSI code
 let g:limelight_conceal_ctermfg = 'gray'
