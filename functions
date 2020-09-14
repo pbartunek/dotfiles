@@ -209,3 +209,12 @@ function set-window-title {
   title=$*
   echo -ne "\033]0;$title\007"
 }
+
+function pw {
+  local os=$(uname -s)
+  if [[ $os = "Darwin" ]]; then
+    pwgen -sync 32 | pbcopy
+  else
+    pwgen -sync 32 | xclip
+  fi
+}
