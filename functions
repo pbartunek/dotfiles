@@ -212,8 +212,8 @@ function set-window-title {
 function pw {
   local os=$(uname -s)
   if [[ $os = "Darwin" ]]; then
-    pwgen -sync 32 | pbcopy
+    pwgen -1 32 | pbcopy
   else
-    pwgen -sync 32 | xclip
+    pwgen -1 32 | xclip -sel cli
   fi
 }
