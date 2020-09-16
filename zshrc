@@ -38,6 +38,6 @@ source ${HOME}/.functions
 source ${HOME}/.aliases
 source ${HOME}/.grc.zsh
 
-export PATH="${HOME}:${PATH}"
+export PATH="${HOME}/bin:${PATH}:${HOME}/go/bin"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
