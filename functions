@@ -222,3 +222,8 @@ function pw {
     pwgen -1 32 | xclip -sel cli
   fi
 }
+
+compdef _gf gf
+function _gf {
+    _arguments "1: :($(gf -list))"
+}
