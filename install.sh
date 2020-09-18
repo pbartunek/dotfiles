@@ -25,6 +25,9 @@ echo -e "ssh"
 rm ${HOME}/.ssh/config 2> /dev/null
 ln -s ${PWD}/ssh/config ${HOME}/.ssh/config
 
+echo -e "gf configuration files"
+ln -s ${PWD}/gf ${HOME}/.gf
+
 echo "[+] Configuring Git."
 git config --global core.excludesfile ~/.gitignore
 git config --global core.editor vim

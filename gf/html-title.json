@@ -1,0 +1,4 @@
+{
+    "flags": "-roiE",
+    "pattern": "<title>(.*)</title>"
+}
