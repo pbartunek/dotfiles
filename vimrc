@@ -82,5 +82,8 @@ nmap <Leader>g :tabnew\|read !grep -Hnr '<C-R><C-W>'<CR>
 " Base64 decode word under cursor
 nmap <Leader>b :!echo <C-R><C-W> \| base64 -d<CR>
 
+" resolve host name from current line
+nmap <Leader>h :!host '<C-R><C-L>' <CR>
+
 " sort the buffer removing duplicates
 nmap <Leader>s :%!sort -u --version-sort<CR>
