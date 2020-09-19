@@ -83,6 +83,19 @@ serv() {
   fi
 }
 
+serv-auth() {
+  local pass=$(pwgen -1 -n 20)
+  local port=${1:-8090}
+
+  echo "\nStarting a web server with basic authentication: test / ${pass}\n"
+
+  if [[ $port =~ ^[0-9]+$ ]]; then
+    npx http-server . -p $port --username test --password $pass
+  else
+    echo "Usage: $0 [port number]"
+  fi
+}
+
 # convert IP address to decimal
 ip2dec() {
   IFS=.
