@@ -23,6 +23,7 @@ fi
 
 echo -e "ssh"
 rm ${HOME}/.ssh/config 2> /dev/null
+mkdir -p ${HOME}/ssh/ 2> /dev/null
 ln -s ${PWD}/ssh/config ${HOME}/.ssh/config
 
 echo -e "gf configuration files"
