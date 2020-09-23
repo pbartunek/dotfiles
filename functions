@@ -240,3 +240,8 @@ compdef _gf gf
 function _gf {
     _arguments "1: :($(gf -list))"
 }
+
+
+function mkcd {
+  mkdir $1 && cd $1
+}
