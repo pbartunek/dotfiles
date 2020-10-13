@@ -1,0 +1,21 @@
+{
+  "flags":"-HnriE",
+  "patterns":[
+    "(eval|exec|run)",
+    "(process|system|popen|exec|spawn)",
+    "(privilege|permission|capability|role|rbac|policy|authorization|claims)",
+    "(reflect|klass|constantize|forName)",
+    "(pickle|yaml|serialize|marshal|objectinput)",
+    "(parse|open|request)",
+    "(unsafe|insecure|dangerous)",
+    "(todo|fixme|xxx)",
+    "(merge|clone)",
+    "(alloc|free)",
+    "(AES|RSA|DSA|DES|CBC|ECB|HMAC|GCM)",
+    "(JWT|JKS|JWK|JKU¶)",
+    "(password|private|token|secret|key|Authorization)",
+    "(validate|verify)",
+    "(XML|xerces|SAX|etree|xpath|DocumentBuilder)",
+    "(raw)"
+  ]
+}

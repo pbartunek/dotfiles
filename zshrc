@@ -41,4 +41,3 @@ source ${HOME}/.grc.zsh
 
 export PATH="${HOME}/files/tools/bin:${HOME}/bin:${PATH}"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
