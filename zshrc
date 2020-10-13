@@ -34,6 +34,7 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 source ${HOME}/.docker-functions
 source ${HOME}/.git-functions
+source ${HOME}/.tool-functions
 source ${HOME}/.functions
 source ${HOME}/.aliases
 source ${HOME}/.grc.zsh

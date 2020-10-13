@@ -1,0 +1,38 @@
+# gobuster
+gbstr() {
+  gobuster dir -e -k -l -s 200,204,307,500,501,502 --wildcard "$@" | tee -a gobuster.log
+}
+
+compdef '_gbstr' gbstr
+_gbstr() {
+    integer ret=1
+    local -a args
+    args+=(
+        '-u[URL]:url:(http\:// https\://)'
+        '-w[wordlist]:file:_files -W ~/files/tools/wordlists'
+        '-p[Proxy]:string'
+        '-h[help]'
+    )
+    _arguments $args[@] && ret=0
+    return ret
+}
+
+# gf
+compdef _gf gf
+function _gf {
+    _arguments "1: :($(gf -list))"
+}
+
+# httpx
+# discover common web ports, grab page title, status, content type, web server,
+# ip log to file
+function httpx-web {
+  httpx -follow-host-redirects \
+    -status-code \
+    -title \
+    -content-type \
+    -web-server \
+    -ip \
+    -silent \
+    -ports 80,443,3000,5000,5672,7001,7002,7443,8000,8080,8081,8181,8282,8443,8880,8089,8888,9000,9090,9091,9200,9443,9999,10000 | tee -a httpx.log
+}

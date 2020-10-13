@@ -48,6 +48,29 @@ webtest() {
 # autocompletion for webtest
 compdef '_files -/ -W ~/work' webtest
 
+#
+work() {
+  local dir=$1
+
+  if [ -z "$dir" ]; then
+    cd "${HOME}/work"
+  else
+    local project=${1%/}
+    local project_dir="${HOME}/work/${project}"
+
+    if [[ ! -d ${project_dir} ]]; then
+      mkdir -p ${project_dir}/scans
+    fi
+    cd $project_dir
+
+    # create initial files
+    _init-files "$project_dir"
+
+    #screen -S ${project} -t vim vim notes.md
+  fi
+}
+compdef '_files -/ -W ~/work' work
+
 # print screen
 # requirements: maim, slop, zenity
 prtscr() {
@@ -103,30 +126,6 @@ ip2dec() {
   echo $(( (a*256**3) + (b*256**2) + (c*256) + (d) ))
 }
 
-# get subdomains
-function get-subdomains() {
-  if [ -z "$1" ]; then
-    echo "Usage: $0 target.domain"
-    return
-  fi
-  target=$1
-  temp=mktemp
-
-  echo "Getting subdomains for $target"
-  echo -n "sources: "
-
-  echo -n "Hackertarget, "
-  curl "http://api.hackertarget.com/hostsearch/?q=$target" -m 30 2>/dev/null | sed 's/,/ /' | awk '{print $1}' | grep "$target" >> $temp
-
-  echo -n "Virustotal, "
-  curl https://www.virustotal.com/en/domain/$target/information/ -H 'Host: www.virustotal.com' -H 'User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0' -H 'Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8' -H 'Accept-Language: en-US,en;q=0.5' --compressed -m 30 2> /dev/null| grep information | grep "$target" | awk '{print $3}' | sed 's/\// /g' | awk '{print $4}'  >> $temp
-
-  echo ""
-  echo "Found $(cat $temp | sort -u | wc -l) $target subdomains:"
-  cat $temp | sort -u
-  rm $temp
-}
-
 # formal XML
 format-xml() {
   if [ -z "$1" ]; then
@@ -147,29 +146,6 @@ format-scope() {
   sed -i -E 's@/([0-9]{2})@/\1\n@g' $1;
   sed -i -e '/^$/d' $1;
 }
-
-#
-work() {
-  local dir=$1
-
-  if [ -z "$dir" ]; then
-    cd "${HOME}/work"
-  else
-    local project=${1%/}
-    local project_dir="${HOME}/work/${project}"
-
-    if [[ ! -d ${project_dir} ]]; then
-      mkdir -p ${project_dir}/scans
-    fi
-    cd $project_dir
-
-    # create initial files
-    _init-files "$project_dir"
-
-    #screen -S ${project} -t vim vim notes.md
-  fi
-}
-compdef '_files -/ -W ~/work' work
 
 # notes
 function notes() {
@@ -202,31 +178,12 @@ function to-clipboard() {
   fi
 }
 
-# gobuster
-gbstr() {
-  gobuster dir -e -k -l -s 200,204,307,500,501,502 --wildcard "$@" | tee -a gobuster.log
-}
-
-# autocompletion for gobuster
-compdef '_gbstr' gbstr
-_gbstr() {
-    integer ret=1
-    local -a args
-    args+=(
-        '-u[URL]:url:(http\:// https\://)'
-        '-w[wordlist]:file:_files -W ~/files/tools/wordlists'
-        '-p[Proxy]:string'
-        '-h[help]'
-    )
-    _arguments $args[@] && ret=0
-    return ret
-}
-
 function set-window-title {
   title=$*
   echo -ne "\033]0;$title\007"
 }
 
+# generate password and copy it to clipboard
 function pw {
   local os=$(uname -s)
   if [[ $os = "Darwin" ]]; then
@@ -235,12 +192,6 @@ function pw {
     pwgen -1 32 | xclip -sel cli
   fi
 }
-
-compdef _gf gf
-function _gf {
-    _arguments "1: :($(gf -list))"
-}
-
 
 function mkcd {
   mkdir $1 && cd $1
