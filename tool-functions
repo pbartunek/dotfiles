@@ -17,6 +17,11 @@ _gbstr() {
     return ret
 }
 
+# ffuf
+function ffuf() {
+  ffuf -v -c "$@" | tee -a ffuf.out
+}
+
 # gf
 compdef _gf gf
 function _gf {
