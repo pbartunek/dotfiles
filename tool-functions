@@ -1,5 +1,5 @@
 # gobuster
-gbstr() {
+function gbstr() {
   gobuster dir -e -k -l -s 200,204,307,500,501,502 --wildcard "$@" | tee -a gobuster.log
 }
 
@@ -19,7 +19,12 @@ _gbstr() {
 
 # ffuf
 function ffuf() {
-  ffuf -v -c "$@" | tee -a ffuf.out
+  ffuf -v -c -ac "$@" | tee -a ffuf.out
+}
+
+# meg
+function meg() {
+  meg -d 3000 -s 200 -s 403 -s 500 -v "$@" | tee -a meg.log
 }
 
 # gf
