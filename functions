@@ -136,15 +136,21 @@ format-xml() {
   cat $1 | python -c 'import sys;import xml.dom.minidom;s=sys.stdin.read();print xml.dom.minidom.parseString(s).toprettyxml()'
 }
 
-# format text file with ip addresses and network masks
+# format text file with ip addresses and network masks,
+# generate list of IP addresses from IP ranges
 format-scope() {
   if [ -z "$1" ]; then
     echo "Usage: $0 file"
     return
   fi
+  local filename=$1
 
-  sed -i -E 's@/([0-9]{2})@/\1\n@g' $1;
-  sed -i -e '/^$/d' $1;
+  sed -i -E 's@/([0-9]{2})@/\1\n@g' $filename;
+  sed -i -e '/^$/d' $filename;
+
+  nmap -sL -iL $filename -Pn -n | grep "Nmap scan report" | cut -d" " -f5 > "${filename}.tmp"
+  rm $filename
+  mv "${filename}.tmp" $filename
 }
 
 # notes
