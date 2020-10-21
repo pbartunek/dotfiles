@@ -19,12 +19,12 @@ _gbstr() {
 
 # ffuf
 function ffuf() {
-  ffuf -v -c -ac "$@" | tee -a ffuf.out
+  command ffuf -v -c -ac "$@" | tee -a ffuf.out
 }
 
 # meg
 function meg() {
-  meg -d 3000 -s 200 -s 403 -s 500 -v "$@" | tee -a meg.log
+  command meg -d 3000 -s 200 -s 403 -s 500 -v "$@" | tee -a meg.log
 }
 
 # gf
