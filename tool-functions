@@ -46,3 +46,47 @@ function httpx-web {
     -silent \
     -ports 80,443,3000,5000,5672,7001,7002,7443,8000,8080,8081,8181,8282,8443,8880,8089,8888,9000,9090,9091,9200,9443,9999,10000 | tee -a httpx.log
 }
+
+# httprobe - default web ports
+function httprobe() {
+  command httprobe \
+    -p http:3000 \
+    -p http:7001 \
+    -p https:7001 \
+    -p http:7002 \
+    -p https:7002 \
+    -p https:7443 \
+    -p http:8000 \
+    -p http:8080 \
+    -p http:8081 \
+    -p http:8089 \
+    -p http:8181 \
+    -p http:8282 \
+    -p https:8443 \
+    -p http:8888 \
+    -p http:9000 \
+    -p http:9090 \
+    -p http:9091 \
+    -p http:9200 \
+    -p https:9443 | tee -a httprobe.log
+}
+
+# nuclei default templates
+function nuclei-default() {
+  command nuclei \
+    -pbar \
+    -v \
+    -t ~/nuclei-templates/cves \
+    -t ~/nuclei-templates/files \
+    -t ~/nuclei-templates/default-credentials \
+    -t ~/nuclei-templates/generic-detections \
+    -t ~/nuclei-templates/panels \
+    -t ~/nuclei-templates/security-misconfiguration \
+    -t ~/nuclei-templates/technologies \
+    -t ~/nuclei-templates/vulnerabilities \
+    -t ~/nuclei-templates/fuzzing \
+    -o nuclei.log
+}
+
+# nuclei autocompletion
+compdef '_files -/ -W ~/nuclei-templates/' nuclei
