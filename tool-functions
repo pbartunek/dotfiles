@@ -92,7 +92,8 @@ function nuclei-internal() {
     -t ~/nuclei-templates/technologies \
     -t ~/nuclei-templates/vulnerabilities \
     -t ~/nuclei-templates/fuzzing \
-    -o nuclei.log
+    -o nuclei.log \
+    "$@"
 }
 
 # nuclei autocompletion
