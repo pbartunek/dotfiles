@@ -139,6 +139,28 @@ function resolve-domains() {
   echo -e "${BLUE}[+] resolved $(wc -l ${SUBDOMAINS_DIR}/subdomains-resolved.txt | awk '{print $1}') subdomains${RESET}"
 }
 
+function get-cname-records() {
+  setup-dirs
+
+  echo -e "${GREEN}\n[+] Getting CNAME records${RESET}"
+
+  runBanner "dnsprobe"
+  command dnsprobe -o ${SUBDOMAINS_DIR}/cname-results.txt -t 100 -silent -r CNAME
+
+  echo -e "${BLUE}[+] found $(wc -l ${SUBDOMAINS_DIR}/cname-results.txt | awk '{print $1}') cname records${RESET}"
+}
+
+function get-txt-records() {
+  setup-dirs
+
+  echo -e "${GREEN}\n[+] Getting TXT records${RESET}"
+
+  runBanner "dnsprobe"
+  command dnsprobe -o ${SUBDOMAINS_DIR}/txt-results.txt -t 100 -silent -r TXT
+
+  echo -e "${BLUE}[+] found $(wc -l ${SUBDOMAINS_DIR}/txt-results.txt | awk '{print $1}') txt records${RESET}"
+}
+
 function check-http() {
   setup-dirs
 
@@ -261,6 +283,8 @@ function recon() {
 
   enum-subdomains $target
   cat ${SUBDOMAINS_DIR}/subdomains.txt | resolve-domains
+  cat ${SUBDOMAINS_DIR}/subdomains.txt | get-cname-records
+  cat ${SUBDOMAINS_DIR}/subdomains.txt | get-txt-records
   cat ${SUBDOMAINS_DIR}/subdomains-resolved.txt | check-http
   cat ${WEB_DIR}/http-services.txt | web-screenshots
   cat ${WEB_DIR}/http-services.txt | nuclei-checks
