@@ -179,7 +179,7 @@ function check-http() {
     -srd ${WEB_DIR}/httpx-output \
     -o ${WEB_DIR}/httpx.log
 
-  cat ${WEB_DIR}/httpx.log | cut -d" " -f1 > ${WEB_DIR}/http-services.txt
+  cat ${WEB_DIR}/httpx.log | cut -d" " -f1 | cut -d":" -f1,2 > ${WEB_DIR}/http-services.txt
   echo -e "${BLUE}[+] found $(wc -l ${WEB_DIR}/http-services.txt | awk '{print $1}') HTTP(s) services${RESET}"
 }
 
@@ -274,7 +274,7 @@ function enum-wayback-urls() {
 
   command gau -o ${WEB_DIR}/urls.txt
 
-  echo -e "${BLUE}[+] meg found $(wc -l ${WEB_DIR}/urls.txt | awk '{print $1}') items${RESET}"
+  echo -e "${BLUE}[+] gau found $(wc -l ${WEB_DIR}/urls.txt | awk '{print $1}') items${RESET}"
 }
 
 function recon() {
