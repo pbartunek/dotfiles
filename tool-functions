@@ -86,6 +86,13 @@ function nuclei-internal() {
 # nuclei autocompletion
 compdef '_files -/ -W ~/nuclei-templates/' nuclei
 
+# nmap scan services
+function nmap-services() {
+  while IFS=":" read -rA host; do
+    nmap -sTV --version-all --open --append-output -oN "nmap_${host[1]}.nmap" -p $host[2] $host[1]
+  done
+}
+
 #
 # recon functions
 #
@@ -313,4 +320,5 @@ function recon-internal() {
   cat ${WEB_DIR}/http-services.txt | nuclei-checks-internal
   dir-bruteforce
 }
+
 
