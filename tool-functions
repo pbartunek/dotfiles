@@ -186,7 +186,7 @@ function check-http() {
 function check-http-internal() {
   setup-dirs
 
-  echo -e "${GREEN}\n[+] Checking subdomains for HTTP(s) services${RESET}"
+  echo -e "${GREEN}\n[+] Checking for HTTP(s) services${RESET}"
   runBanner "httprobe"
 
   command httprobe ${=HTTPROBE_PORTS}  > ${WEB_DIR}/http-services.txt
