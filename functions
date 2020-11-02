@@ -8,6 +8,15 @@ _init-files() {
   fi
 }
 
+_init-dirs() {
+  local project_dir=$1
+
+  if [[ ! -d ${project_dir} ]]; then
+    mkdir -p ${project_dir}/scans ${project_dir}/findings
+  fi
+}
+
+# create project structure, start burp and web browser
 webtest() {
   local project=${1%/}
   local project_dir="${HOME}/work/${project}"
@@ -21,14 +30,9 @@ webtest() {
     return
   fi 
 
-  if [[ ! -d ${project_dir} ]]; then
-    mkdir -p ${project_dir}/scans
-    mkdir -p ${project_dir}/findings
-  fi
-
+  # create initial directories and files
+  _init-dirs $project_dir
   cd $project_dir
-
-  # create initial files
   _init-files $project_dir
 
   firefox-esr 2> /dev/null &
@@ -48,7 +52,7 @@ webtest() {
 # autocompletion for webtest
 compdef '_files -/ -W ~/work' webtest
 
-#
+# open project directory
 work() {
   local dir=$1
 
@@ -58,15 +62,12 @@ work() {
     local project=${1%/}
     local project_dir="${HOME}/work/${project}"
 
-    if [[ ! -d ${project_dir} ]]; then
-      mkdir -p ${project_dir}/scans
-    fi
+    # create initial directories and files
+    _init-dirs $project_dir
     cd $project_dir
-
-    # create initial files
     _init-files "$project_dir"
 
-    #screen -S ${project} -t vim vim notes.md
+    screen -S ${project} -t vim vim notes.md
   fi
 }
 compdef '_files -/ -W ~/work' work
