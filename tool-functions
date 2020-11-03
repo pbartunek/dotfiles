@@ -299,6 +299,17 @@ function recon() {
   cat ${SUBDOMAINS_DIR}/subdomains-resolved.txt | enum-wayback-urls
 }
 
+function recon-passive() {
+  local target=$1
+  setup-dirs
+
+  enum-subdomains $target
+  cat ${SUBDOMAINS_DIR}/subdomains.txt | resolve-domains
+  cat ${SUBDOMAINS_DIR}/subdomains.txt | get-cname-records
+  cat ${SUBDOMAINS_DIR}/subdomains.txt | get-txt-records
+  cat ${SUBDOMAINS_DIR}/subdomains-resolved.txt | enum-wayback-urls
+}
+
 function recon-no-scan() {
   local target=$1
   setup-dirs
