@@ -203,3 +203,12 @@ function pw {
 function mkcd {
   mkdir $1 && cd $1
 }
+
+# Read URL(s) from STDIN and sends HEAD request with curl, returns URL and status code
+function test-url() {
+  while read -r url; do
+    echo -en "$url\t";
+    curl -s --max-time 2 -k -I $url | head -n 1 | cut -d" " -f2-
+  done
+}
+
