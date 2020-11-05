@@ -232,6 +232,7 @@ function nuclei-checks() {
     -t ~/nuclei-templates/vulnerabilities \
     -t ~/nuclei-templates/fuzzing \
     -t ~/nuclei-templates/subdomain-takeover \
+    -severity critical,high,medium \
     -o ${WEB_DIR}/nuclei.log
 }
 
@@ -253,6 +254,7 @@ function nuclei-checks-internal() {
     -t ~/nuclei-templates/technologies \
     -t ~/nuclei-templates/vulnerabilities \
     -t ~/nuclei-templates/fuzzing \
+    -severity critical,high,medium \
     -o ${WEB_DIR}/nuclei.log
 }
 
