@@ -228,7 +228,6 @@ function nuclei-checks() {
     -t ~/nuclei-templates/default-credentials \
     -t ~/nuclei-templates/generic-detections \
     -t ~/nuclei-templates/panels \
-    -t ~/nuclei-templates/security-misconfiguration \
     -t ~/nuclei-templates/technologies \
     -t ~/nuclei-templates/vulnerabilities \
     -t ~/nuclei-templates/fuzzing \
@@ -293,10 +292,23 @@ function recon() {
   cat ${SUBDOMAINS_DIR}/subdomains.txt | get-cname-records
   cat ${SUBDOMAINS_DIR}/subdomains.txt | get-txt-records
   cat ${SUBDOMAINS_DIR}/subdomains-resolved.txt | check-http
+  cat ${WEB_DIR}/http-services.txt | enum-wayback-urls
   cat ${WEB_DIR}/http-services.txt | web-screenshots
   cat ${WEB_DIR}/http-services.txt | nuclei-checks
   dir-bruteforce
-  cat ${SUBDOMAINS_DIR}/subdomains-resolved.txt | enum-wayback-urls
+}
+
+function recon-no-scan() {
+  local target=$1
+  setup-dirs
+
+  enum-subdomains $target
+  cat ${SUBDOMAINS_DIR}/subdomains.txt | resolve-domains
+  cat ${SUBDOMAINS_DIR}/subdomains.txt | get-cname-records
+  cat ${SUBDOMAINS_DIR}/subdomains.txt | get-txt-records
+  cat ${SUBDOMAINS_DIR}/subdomains-resolved.txt | check-http
+  cat ${WEB_DIR}/http-services.txt | enum-wayback-urls
+  cat ${WEB_DIR}/http-services.txt | web-screenshots
 }
 
 function recon-passive() {
@@ -308,19 +320,6 @@ function recon-passive() {
   cat ${SUBDOMAINS_DIR}/subdomains.txt | get-cname-records
   cat ${SUBDOMAINS_DIR}/subdomains.txt | get-txt-records
   cat ${SUBDOMAINS_DIR}/subdomains-resolved.txt | enum-wayback-urls
-}
-
-function recon-no-scan() {
-  local target=$1
-  setup-dirs
-
-  enum-subdomains $target
-  cat ${SUBDOMAINS_DIR}/subdomains.txt | resolve-domains
-  cat ${SUBDOMAINS_DIR}/subdomains.txt | get-cname-records
-  cat ${SUBDOMAINS_DIR}/subdomains.txt | get-txt-records
-  cat ${SUBDOMAINS_DIR}/subdomains-resolved.txt | enum-wayback-urls
-  cat ${SUBDOMAINS_DIR}/subdomains-resolved.txt | check-http
-  cat ${WEB_DIR}/http-services.txt | web-screenshots
 }
 
 function recon-internal() {
