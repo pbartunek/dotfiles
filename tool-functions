@@ -139,8 +139,8 @@ function resolve-domains() {
 
   echo -e "${GREEN}\n[+] Resolving subdomains to IP addresses${RESET}"
 
-  runBanner "dnsprobe"
-  command dnsprobe -o ${SUBDOMAINS_DIR}/dns-results.txt -t 100 -silent
+  runBanner "dnsx"
+  command dnsx -o ${SUBDOMAINS_DIR}/dns-results.txt -t 100 -silent
 
   cat ${SUBDOMAINS_DIR}/dns-results.txt | cut -d " " -f1 | sort -u  > ${SUBDOMAINS_DIR}/subdomains-resolved.txt
   echo -e "${BLUE}[+] resolved $(wc -l ${SUBDOMAINS_DIR}/subdomains-resolved.txt | awk '{print $1}') subdomains${RESET}"
@@ -151,8 +151,8 @@ function get-cname-records() {
 
   echo -e "${GREEN}\n[+] Getting CNAME records${RESET}"
 
-  runBanner "dnsprobe"
-  command dnsprobe -o ${SUBDOMAINS_DIR}/cname-results.txt -t 100 -silent -r CNAME
+  runBanner "dnsx"
+  command dnsx -o ${SUBDOMAINS_DIR}/cname-results.txt -t 100 -silent -r CNAME
 
   echo -e "${BLUE}[+] found $(wc -l ${SUBDOMAINS_DIR}/cname-results.txt | awk '{print $1}') cname records${RESET}"
 }
@@ -162,8 +162,8 @@ function get-txt-records() {
 
   echo -e "${GREEN}\n[+] Getting TXT records${RESET}"
 
-  runBanner "dnsprobe"
-  command dnsprobe -o ${SUBDOMAINS_DIR}/txt-results.txt -t 100 -silent -r TXT
+  runBanner "dnsx"
+  command dnsx -o ${SUBDOMAINS_DIR}/txt-results.txt -t 100 -silent -r TXT
 
   echo -e "${BLUE}[+] found $(wc -l ${SUBDOMAINS_DIR}/txt-results.txt | awk '{print $1}') txt records${RESET}"
 }
