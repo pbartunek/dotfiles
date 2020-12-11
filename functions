@@ -35,7 +35,7 @@ webtest() {
   cd $project_dir
   _init-files $project_dir
 
-  firefox-esr 2> /dev/null &
+  #firefox-esr 2> /dev/null &
   if [[ -f ${project_dir}/project.burp || ! -f ${HOME}/files/tools/config-files/burp_project.json ]]; then
     echo "burp project exists"
     BurpSuitePro \
