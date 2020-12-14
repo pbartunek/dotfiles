@@ -281,6 +281,7 @@ function enum-wayback-urls() {
   runBanner "gau"
 
   command gau -o ${WEB_DIR}/urls.txt
+  sort -u -o ${WEB_DIR}/urls.txt ${WEB_DIR}/urls.txt
 
   echo -e "${BLUE}[+] gau found $(wc -l ${WEB_DIR}/urls.txt | awk '{print $1}') items${RESET}"
 }
