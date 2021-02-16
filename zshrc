@@ -5,6 +5,11 @@ promptinit
 prompt adam1
 
 setopt histignorealldups sharehistory
+setopt autocd
+setopt magicequalsubst
+setopt nonomatch
+setopt notify
+setopt numericglobsort
 
 # Keep 5000 lines of history within the shell and save it to ~/.zsh_history:
 HISTSIZE=5000
@@ -32,6 +37,8 @@ zstyle ':completion:*' verbose true
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
+alias history="history 0"
+
 source ${HOME}/.docker-functions
 source ${HOME}/.git-functions
 source ${HOME}/.tool-functions
@@ -41,3 +48,11 @@ source ${HOME}/.grc.zsh
 
 export PATH="${HOME}/bin:${HOME}/go/bin:${PATH}"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+# enable auto-suggestions based on the history
+if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    . /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+    # change suggestion color
+    ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
+fi
+
