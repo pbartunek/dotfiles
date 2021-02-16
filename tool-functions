@@ -69,7 +69,6 @@ function httprobe() {
 # nuclei default templates
 function nuclei-internal() {
   command nuclei \
-    -pbar \
     -t ~/nuclei-templates/cves \
     -t ~/nuclei-templates/files \
     -t ~/nuclei-templates/default-credentials \
