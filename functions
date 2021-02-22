@@ -158,6 +158,7 @@ format-scope() {
 function notes() {
   if [[ -d ${HOME}/files/notes ]]; then
     cd ${HOME}/files/notes;
+    set-window-title notes
 
     screen -S notes -t server -d -m ./web.sh
     sleep 1
