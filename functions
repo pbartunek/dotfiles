@@ -213,3 +213,7 @@ function test-url() {
   done
 }
 
+function h() {
+  history | grep --color $1
+}
+
