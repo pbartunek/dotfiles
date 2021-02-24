@@ -195,7 +195,7 @@ function check-http-internal() {
   echo -e "${GREEN}\n[+] Checking for HTTP(s) services${RESET}"
   runBanner "httprobe"
 
-  command httprobe ${=HTTPROBE_PORTS}  > ${WEB_DIR}/http-services.txt
+  command httprobe ${=HTTPROBE_PORTS}  | tee -a ${WEB_DIR}/http-services.txt
 
   echo -e "${BLUE}[+] found $(wc -l ${WEB_DIR}/http-services.txt | awk '{print $1}') HTTP(s) services${RESET}"
 }
