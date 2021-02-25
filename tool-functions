@@ -70,11 +70,11 @@ function httprobe() {
 function nuclei-internal() {
   command nuclei \
     -t ~/nuclei-templates/cves \
-    -t ~/nuclei-templates/files \
-    -t ~/nuclei-templates/default-credentials \
-    -t ~/nuclei-templates/generic-detections \
-    -t ~/nuclei-templates/panels \
-    -t ~/nuclei-templates/security-misconfiguration \
+    -t ~/nuclei-templates/default-logins \
+    -t ~/nuclei-templates/exposures \
+    -t ~/nuclei-templates/exposed-panels \
+    -t ~/nuclei-templates/exposed-tokens \
+    -t ~/nuclei-templates/misconfiguration \
     -t ~/nuclei-templates/technologies \
     -t ~/nuclei-templates/vulnerabilities \
     -t ~/nuclei-templates/fuzzing \
@@ -195,7 +195,7 @@ function check-http-internal() {
   echo -e "${GREEN}\n[+] Checking for HTTP(s) services${RESET}"
   runBanner "httprobe"
 
-  command httprobe ${=HTTPROBE_PORTS}  | tee -a ${WEB_DIR}/http-services.txt
+  command httprobe -c 50 ${=HTTPROBE_PORTS}  | tee -a ${WEB_DIR}/http-services.txt
 
   echo -e "${BLUE}[+] found $(wc -l ${WEB_DIR}/http-services.txt | awk '{print $1}') HTTP(s) services${RESET}"
 }
@@ -222,14 +222,13 @@ function nuclei-checks() {
 
   command nuclei \
     -c 30 \
-    -t ~/nuclei-templates/files \
-    -t ~/nuclei-templates/default-credentials \
-    -t ~/nuclei-templates/generic-detections \
-    -t ~/nuclei-templates/panels \
+    -t ~/nuclei-templates/default-logins \
+    -t ~/nuclei-templates/exposed-panels \
+    -t ~/nuclei-templates/exposed-tokens \
     -t ~/nuclei-templates/technologies \
     -t ~/nuclei-templates/vulnerabilities \
     -t ~/nuclei-templates/fuzzing \
-    -t ~/nuclei-templates/subdomain-takeover \
+    -t ~/nuclei-templates/takeovers \
     -severity critical,high,medium \
     -o ${WEB_DIR}/nuclei.log
 }
@@ -243,13 +242,15 @@ function nuclei-checks-internal() {
   command nuclei \
     -c 30 \
     -t ~/nuclei-templates/cves \
-    -t ~/nuclei-templates/files \
-    -t ~/nuclei-templates/default-credentials \
-    -t ~/nuclei-templates/generic-detections \
-    -t ~/nuclei-templates/panels \
-    -t ~/nuclei-templates/security-misconfiguration \
+    -t ~/nuclei-templates/default-logins \
+    -t ~/nuclei-templates/exposed-panels \
+    -t ~/nuclei-templates/exposed-tokens \
+    -t ~/nuclei-templates/exposures \
+    -t ~/nuclei-templates/miscellaneous \
+    -t ~/nuclei-templates/misconfiguration \
     -t ~/nuclei-templates/technologies \
     -t ~/nuclei-templates/vulnerabilities \
+    -t ~/nuclei-templates/workflows \
     -t ~/nuclei-templates/fuzzing \
     -severity critical,high,medium \
     -o ${WEB_DIR}/nuclei.log
