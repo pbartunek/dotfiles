@@ -29,6 +29,7 @@ alias aquatone='aquatone -ports xlarge -threads 20 -http-timeout 2000 '
 # other
 alias grep='grep --color=auto -a'
 alias less='less -R'
+alias tree='tree -a'
 alias df='df -h'
 alias bc='bc -l'
 alias ifconfig="grc /sbin/ifconfig"
