@@ -93,6 +93,11 @@ function nmap-services() {
   done
 }
 
+# gau - filtered output
+function gau-filtered() {
+  command gau -subs $1 | grep -v -E -i '(.jpg)|(.gif)|(.svg)|(.png)|(.js)|(.woff)|(.css)|(.ico)|(.ttf)|(.eof)'
+}
+
 #
 # recon functions
 #
