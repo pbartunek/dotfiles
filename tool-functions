@@ -41,7 +41,7 @@ function meg() {
   command meg -d 3000 -s 200 -s 401 -s 500 -v "$@" | tee -a meg.log
 }
 
-# gf
+# gf autocompletion
 compdef _gf gf
 function _gf {
     _arguments "1: :($(gf -list))"
@@ -95,7 +95,7 @@ function nmap-services() {
 
 # gau - filtered output
 function gau-filtered() {
-  command gau -subs $1 | grep -v -E -i '(.jpg)|(.gif)|(.svg)|(.png)|(.js)|(.woff)|(.css)|(.ico)|(.ttf)|(.eof)'
+  command gau -subs $1 | grep -v -E -i '(.jpg)|(.gif)|(.svg)|(.png)|(.js)|(.woff)|(.css)|(.ico)|(.ttf)|(.eof)|(.eot)|(.otf)'
 }
 
 #
