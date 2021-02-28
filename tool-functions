@@ -95,7 +95,7 @@ function nmap-services() {
 
 # gau - filtered output
 function gau-filtered() {
-  command gau -subs $1 | grep -v -E -i '(.jpg)|(.gif)|(.svg)|(.png)|(.js)|(.woff)|(.css)|(.ico)|(.ttf)|(.eof)|(.eot)|(.otf)'
+  command gau -subs $1 | grep -v -E -i '(.jpg)|(.gif)|(.svg)|(.png)|(.js)|(.woff)|(.css)|(.ico)|(.ttf)|(.eof)|(.eot)|(.otf)' | tee -a "${1}.gau"
 }
 
 #
