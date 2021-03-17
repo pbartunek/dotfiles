@@ -33,7 +33,7 @@ _gbstr() {
 
 # ffuf
 function ffuf() {
-  command ffuf -v -c -ac -fc 301,302 -rate 100  "$@" | tee -a ffuf.out
+  command ffuf -ic -v -c -ac -fc 301,302 -rate 100  "$@" | tee -a ffuf.out
 }
 
 # meg
