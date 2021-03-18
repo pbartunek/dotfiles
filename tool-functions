@@ -236,7 +236,6 @@ function nuclei-checks() {
     -t ~/nuclei-templates/fuzzing \
     -t ~/nuclei-templates/takeovers \
     -stats \
-    -severity critical,high,medium \
     -o ${WEB_DIR}/nuclei.log
 }
 
@@ -261,7 +260,6 @@ function nuclei-checks-internal() {
     -t ~/nuclei-templates/fuzzing \
     -stats \
     -o ${WEB_DIR}/nuclei.log
-    #-severity critical,high,medium \
 }
 
 function dir-bruteforce() {
