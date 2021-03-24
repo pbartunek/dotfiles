@@ -260,6 +260,10 @@ function nuclei-checks-internal() {
     -t ~/nuclei-templates/vulnerabilities \
     -t ~/nuclei-templates/workflows \
     -t ~/nuclei-templates/fuzzing \
+    -et ~/nuclei-templates/miscellaneous/missing-csp.yaml \
+    -et ~/nuclei-templates/miscellaneous/missing-hsts.yaml \
+    -et ~/nuclei-templates/miscellaneous/missing-x-frame-options.yaml \
+    -et ~/nuclei-templates/fuzzing/iis-shortname.yaml \
     -stats \
     -rl 100 \
     -o ${WEB_DIR}/nuclei.log
