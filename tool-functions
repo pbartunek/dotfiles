@@ -268,7 +268,7 @@ function nuclei-checks-internal() {
     -rl 100 \
     -o ${WEB_DIR}/nuclei.log
 
-    cat ${WEB_DIR}/nuclei.log | cut -d" " -f3- | sponge ${WEB_DIR}/nuclei.log
+    cat ${WEB_DIR}/nuclei.log | cut -d" " -f3-  | sort -u | sponge ${WEB_DIR}/nuclei.log
 }
 
 function dir-bruteforce() {
