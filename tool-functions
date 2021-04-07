@@ -308,9 +308,9 @@ function recon() {
   cat ${SUBDOMAINS_DIR}/subdomains.txt | get-cname-records
   cat ${SUBDOMAINS_DIR}/subdomains.txt | get-txt-records
   cat ${SUBDOMAINS_DIR}/subdomains-resolved.txt | check-http
-  cat ${WEB_DIR}/http-services.txt | enum-wayback-urls
   cat ${WEB_DIR}/http-services.txt | web-screenshots
   cat ${WEB_DIR}/http-services.txt | nuclei-checks
+  cat ${WEB_DIR}/http-services.txt | enum-wayback-urls
   dir-bruteforce
 }
 
