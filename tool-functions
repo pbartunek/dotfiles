@@ -311,6 +311,7 @@ function recon() {
   cat ${WEB_DIR}/http-services.txt | web-screenshots
   cat ${WEB_DIR}/http-services.txt | nuclei-checks
   cat ${WEB_DIR}/http-services.txt | enum-wayback-urls
+  gospider -S ${WEB_DIR}/http-services.txt -o ${WEB_DIR}/spider-out -d 5
   dir-bruteforce
 }
 
@@ -344,6 +345,7 @@ function recon-internal() {
   check-http-internal
   cat ${WEB_DIR}/http-services.txt | web-screenshots
   cat ${WEB_DIR}/http-services.txt | nuclei-checks-internal
+  gospider -S ${WEB_DIR}/http-services.txt -o ${WEB_DIR}/spider-out -d 5
   dir-bruteforce
 }
 
@@ -355,6 +357,6 @@ function recon-ip() {
   echo $input | check-http-internal
   cat ${WEB_DIR}/http-services.txt | web-screenshots
   cat ${WEB_DIR}/http-services.txt | nuclei-checks-internal
+  gospider -S ${WEB_DIR}/http-services.txt -o ${WEB_DIR}/spider-out -d 5
   dir-bruteforce
 }
-
