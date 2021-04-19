@@ -78,6 +78,7 @@ function nuclei-internal() {
     -t ~/nuclei-templates/technologies \
     -t ~/nuclei-templates/vulnerabilities \
     -t ~/nuclei-templates/fuzzing \
+    -t ~/nuclei-templates/custom \
     -rl 100 \
     -stats \
     -o nuclei.log \
@@ -236,6 +237,7 @@ function nuclei-checks() {
     -t ~/nuclei-templates/vulnerabilities \
     -t ~/nuclei-templates/fuzzing \
     -t ~/nuclei-templates/takeovers \
+    -t ~/nuclei-templates/custom \
     -stats \
     -rl 100 \
     -o ${WEB_DIR}/nuclei.log
@@ -260,6 +262,7 @@ function nuclei-checks-internal() {
     -t ~/nuclei-templates/vulnerabilities \
     -t ~/nuclei-templates/workflows \
     -t ~/nuclei-templates/fuzzing \
+    -t ~/nuclei-templates/custom \
     -et ~/nuclei-templates/miscellaneous/missing-csp.yaml \
     -et ~/nuclei-templates/miscellaneous/missing-hsts.yaml \
     -et ~/nuclei-templates/miscellaneous/missing-x-frame-options.yaml \
