@@ -202,7 +202,7 @@ function pw {
 }
 
 function mkcd {
-  mkdir $1 && cd $1
+  mkdir -p $1 && cd $1
 }
 
 # Read URL(s) from STDIN and sends HEAD request with curl, returns URL and status code
