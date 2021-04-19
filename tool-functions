@@ -366,3 +366,19 @@ function recon-ip() {
   gospider -S ${WEB_DIR}/http-services.txt -o ${WEB_DIR}/spider-out -d 5
   dir-bruteforce
 }
+
+function recon-single-domain() {
+  local target=$1
+  setup-dirs
+
+  echo $target | get-cname-records
+  echo $target | get-txt-records
+  echo $target | check-http
+  cat ${WEB_DIR}/http-services.txt | web-screenshots
+  cat ${WEB_DIR}/http-services.txt | nuclei-checks
+  cat ${WEB_DIR}/http-services.txt | enum-wayback-urls
+  gospider -S ${WEB_DIR}/http-services.txt -o ${WEB_DIR}/spider-out -d 5
+  dir-bruteforce
+}
+
+
