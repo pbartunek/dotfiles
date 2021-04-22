@@ -213,6 +213,13 @@ function test-url() {
   done
 }
 
+function getJs() {
+  while read -r url; do
+    echo "Downloading JS files from ${url}"
+    for f in `getJS --url $url --complete `; do curl --create-dirs --silent -O $f; done
+  done
+}
+
 function h() {
   history | grep --color $1
 }
