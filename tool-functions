@@ -359,7 +359,7 @@ function recon-ip() {
   setup-dirs
   input=$(tee)
 
-  echo $input | hakrevdns > rev-dns.txt
+  echo $input | hakrevdns > ${SUBDOMAINS_DIR}/rev-dns.txt
   echo $input | check-http-internal
   cat ${WEB_DIR}/http-services.txt | web-screenshots
   cat ${WEB_DIR}/http-services.txt | nuclei-checks-internal
