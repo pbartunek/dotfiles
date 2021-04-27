@@ -68,17 +68,18 @@ function httprobe() {
 
 # nuclei default templates
 function nuclei-internal() {
+  command nuclei -ut
   command nuclei \
-    -t ~/nuclei-templates/cves \
-    -t ~/nuclei-templates/default-logins \
-    -t ~/nuclei-templates/exposures \
-    -t ~/nuclei-templates/exposed-panels \
-    -t ~/nuclei-templates/exposed-tokens \
-    -t ~/nuclei-templates/misconfiguration \
-    -t ~/nuclei-templates/technologies \
-    -t ~/nuclei-templates/vulnerabilities \
-    -t ~/nuclei-templates/fuzzing \
-    -t ~/nuclei-templates/custom \
+    -t cves \
+    -t default-logins \
+    -t exposures \
+    -t exposed-panels \
+    -t exposed-tokens \
+    -t misconfiguration \
+    -t technologies \
+    -t vulnerabilities \
+    -t fuzzing \
+    -t custom \
     -timeout 10 \
     -rl 100 \
     -stats \
@@ -229,16 +230,17 @@ function nuclei-checks() {
   echo -e "${GREEN}\n[+] Scanning HTTP(s) services${RESET}"
   runBanner "nuclei"
 
+  command nuclei -ut
   command nuclei \
     -c 30 \
-    -t ~/nuclei-templates/default-logins \
-    -t ~/nuclei-templates/exposed-panels \
-    -t ~/nuclei-templates/exposed-tokens \
-    -t ~/nuclei-templates/technologies \
-    -t ~/nuclei-templates/vulnerabilities \
-    -t ~/nuclei-templates/fuzzing \
-    -t ~/nuclei-templates/takeovers \
-    -t ~/nuclei-templates/custom \
+    -t default-logins \
+    -t exposed-panels \
+    -t exposed-tokens \
+    -t technologies \
+    -t vulnerabilities \
+    -t fuzzing \
+    -t takeovers \
+    -t custom \
     -timeout 10 \
     -stats \
     -rl 100 \
@@ -251,24 +253,25 @@ function nuclei-checks-internal() {
   echo -e "${GREEN}\n[+] Scanning HTTP(s) services${RESET}"
   runBanner "nuclei"
 
+  command nuclei -ut
   command nuclei \
     -c 30 \
-    -t ~/nuclei-templates/cves \
-    -t ~/nuclei-templates/default-logins \
-    -t ~/nuclei-templates/exposed-panels \
-    -t ~/nuclei-templates/exposed-tokens \
-    -t ~/nuclei-templates/exposures \
-    -t ~/nuclei-templates/miscellaneous \
-    -t ~/nuclei-templates/misconfiguration \
-    -t ~/nuclei-templates/technologies \
-    -t ~/nuclei-templates/vulnerabilities \
-    -t ~/nuclei-templates/workflows \
-    -t ~/nuclei-templates/fuzzing \
-    -t ~/nuclei-templates/custom \
-    -et ~/nuclei-templates/miscellaneous/missing-csp.yaml \
-    -et ~/nuclei-templates/miscellaneous/missing-hsts.yaml \
-    -et ~/nuclei-templates/miscellaneous/missing-x-frame-options.yaml \
-    -et ~/nuclei-templates/fuzzing/iis-shortname.yaml \
+    -t cves \
+    -t default-logins \
+    -t exposed-panels \
+    -t exposed-tokens \
+    -t exposures \
+    -t miscellaneous \
+    -t misconfiguration \
+    -t technologies \
+    -t vulnerabilities \
+    -t workflows \
+    -t fuzzing \
+    -t custom \
+    -et miscellaneous/missing-csp.yaml \
+    -et miscellaneous/missing-hsts.yaml \
+    -et miscellaneous/missing-x-frame-options.yaml \
+    -et fuzzing/iis-shortname.yaml \
     -timeout 10 \
     -stats \
     -rl 100 \
@@ -359,7 +362,7 @@ function recon-ip() {
   setup-dirs
   input=$(tee)
 
-  echo $input | hakrevdns > rev-dns.txt
+  echo $input | hakrevdns > ${SUBDOMAINS_DIR}/rev-dns.txt
   echo $input | check-http-internal
   cat ${WEB_DIR}/http-services.txt | web-screenshots
   cat ${WEB_DIR}/http-services.txt | nuclei-checks-internal
