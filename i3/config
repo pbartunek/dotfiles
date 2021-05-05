@@ -157,8 +157,8 @@ exec vmware-user-suid-wrapper
 exec nm-applet
 
 # bind Printscreen
-bindsym Print exec "zsh -c '. ~/.functions; prtscr'"
-bindsym $mod+p exec "zsh -c '. ~/.functions; prtscr'"
+bindsym Print exec "flameshot gui"
+bindsym $mod+p exec "flameshot gui"
 
 # Rofi
 bindsym $mod+space exec "rofi -combi-modi run,drun,window -show combi -modi combi
