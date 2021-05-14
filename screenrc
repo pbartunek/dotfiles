@@ -2,3 +2,4 @@ hardstatus alwayslastline
 startup_message off 
 hardstatus string '%{wk}%?%-Lw%?%{=b kR}(%{W}%n %t%?(%u)%?%{=b kR})%{= w}%?%+Lw%?%? %{g}]%{W}'
 termcapinfo xterm* ti@:te@
+scrollback 10000
