@@ -238,7 +238,6 @@ function nuclei-checks() {
     -t exposed-tokens \
     -t technologies \
     -t vulnerabilities \
-    -t fuzzing \
     -t takeovers \
     -t custom \
     -timeout 10 \
