@@ -205,7 +205,7 @@ function check-http-internal() {
   echo -e "${GREEN}\n[+] Checking for HTTP(s) services${RESET}"
   runBanner "httprobe"
 
-  command httprobe -c 50 ${=HTTPROBE_PORTS}  | tee -a ${WEB_DIR}/http-services.txt
+  command httprobe -t 5000 -c 50 ${=HTTPROBE_PORTS}  | tee -a ${WEB_DIR}/http-services.txt
 
   echo -e "${BLUE}[+] found $(wc -l ${WEB_DIR}/http-services.txt | awk '{print $1}') HTTP(s) services${RESET}"
 }
@@ -259,11 +259,11 @@ function nuclei-checks-internal() {
     -t default-logins \
     -t exposed-panels \
     -t exposed-tokens \
+    -t technologies \
+    -t vulnerabilities \
     -t exposures \
     -t miscellaneous \
     -t misconfiguration \
-    -t technologies \
-    -t vulnerabilities \
     -t workflows \
     -t custom \
     -et miscellaneous/missing-csp.yaml \
