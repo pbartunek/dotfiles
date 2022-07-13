@@ -8,6 +8,14 @@ _init-files() {
   fi
 }
 
+_init-files-audit() {
+  local project_dir=$1
+
+  if [[ ! -f ${project_dir}/notes.md ]]; then
+    echo "# ${project}\n\n## scope\n\n\n## TODO\n\n\n## notes\n\n\n## docs\n\n\n## potential issues\n\n\n## findings\n\n\n" > notes.md
+  fi
+}
+
 _init-dirs() {
   local project_dir=$1
 
@@ -15,6 +23,41 @@ _init-dirs() {
     mkdir -p ${project_dir}/scans ${project_dir}/findings
   fi
 }
+
+_init-dirs-audit() {
+  local project_dir=$1
+
+  if [[ ! -d ${project_dir} ]]; then
+    mkdir -p ${project_dir}/scans ${project_dir}/findings ${project_dir}/src
+  fi
+}
+
+
+# create project structure for new audit
+audit() {
+  local project=${1%/}
+  local project_dir="${HOME}/work/${project}"
+
+  if [[ "$project" == "" ]]; then
+    echo "You need to specify project name!"
+    echo "Usage: $0 project_name"
+    return
+  elif [[ ! "$project" =~ ^[a-zA-Z0-9_.-]+$ ]]; then
+    echo "Invalid project name, only [a-zA-Z0-9_.-] characters are allowed!"
+    return
+  fi 
+
+  # create initial directories and files
+  _init-dirs-audit $project_dir
+  cd $project_dir
+  _init-files-audit $project_dir
+
+  set-window-title "Audit: ${project}"
+  code ${project_dir}/src
+  screen -S ${project} -t vim vim notes.md
+}
+# autocompletion for audit
+compdef '_files -/ -W ~/work' audit
 
 # create project structure, start burp and web browser
 webtest() {

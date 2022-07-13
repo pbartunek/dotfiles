@@ -46,7 +46,7 @@ source ${HOME}/.functions
 source ${HOME}/.aliases
 source ${HOME}/.grc.zsh
 
-export PATH="${HOME}/bin:${HOME}/go/bin:${HOME}/.cargo/bin:${PATH}"
+export PATH="${HOME}/bin:${HOME}/go/bin:${HOME}/.cargo/bin:${PATH}:${HOME}/.local/bin"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
 
 # enable auto-suggestions based on the history
