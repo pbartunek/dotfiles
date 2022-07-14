@@ -179,8 +179,8 @@ floating_maximum_size 1200 x 900
 
 # assign program to workspace
 assign [class="Burp"] 1
-assign [class="code"] 1
 
+for_window [class="code"] move to workspace 1
 for_window [title="^Audit:"] move to workspace 2
 
 exec xsetroot -solid "#000000"
