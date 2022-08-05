@@ -24,6 +24,29 @@ function dshpwd() {
 
 # Docker wrappers
 #
+eth-security-toolbox() {
+  local project=$1
+  local project_dir="${HOME}/work/${project}"
+  local name="eth-security-toolbox"
+  local mount_point=""
+
+  if [[ "$project" == "" ]]; then
+    mount_point="${HOME}/work"
+  else
+    mount_point="${HOME}/work/${project}/src"
+    name="${name}-${project}"
+  fi 
+
+  delete-stopped $name
+
+  docker run -ti \
+    --name $name \
+    -v "${mount_point}":/data \
+    trailofbits/eth-security-toolbox
+}
+# autocompletion for eth-security-toolbox
+compdef '_files -/ -W ~/work' eth-security-toolbox
+
 # kali linux
 kali() {
   local project=$1
