@@ -27,7 +27,7 @@ alias nmap-scan='~/files/scripts/nmap-scan.sh'
 alias aquatone='aquatone -ports xlarge -threads 20 -http-timeout 2000 '
 
 # other
-alias grep='grep --color=auto -a'
+alias grep='grep --color=auto -a -n'
 alias less='less -R'
 alias tree='tree -a'
 alias df='df -h'
