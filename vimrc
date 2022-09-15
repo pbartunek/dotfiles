@@ -7,7 +7,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'junegunn/limelight.vim'
 
 " Distraction free writing by removing UI elements and centering everything.
-Plug 'junegunn/goyo.vim'
+"Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
@@ -48,7 +48,7 @@ nnoremap <Down> :echoe "Use j"<CR>
 " autocmd BufRead,BufNewFile *.md setlocal spell spelllang=en_us
 
 " switch view to Goyo for markdown
-autocmd BufRead,BufNewFile *.md Goyo
+"autocmd BufRead,BufNewFile *.md Goyo
 
 let g:netrw_liststyle=3
 
