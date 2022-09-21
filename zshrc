@@ -46,8 +46,14 @@ source ${HOME}/.functions
 source ${HOME}/.aliases
 source ${HOME}/.grc.zsh
 
-export PATH="${HOME}/bin:${HOME}/go/bin:${HOME}/.cargo/bin:${PATH}:${HOME}/.local/bin"
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+
+# PATH
+export PATH="${HOME}/bin:${HOME}/.cargo/bin:${PATH}:${HOME}/.local/bin"
+# add golang
+export PATH="${PATH}:${HOME}/go/bin:/usr/lib/go-1.17/bin/"
+# add foundry
+export PATH="${PATH}:/home/pawel/.foundry/bin"
 
 # enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
@@ -55,8 +61,6 @@ if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     # change suggestion color
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 fi
-
-export PATH="$PATH:/home/pawel/.foundry/bin"
 
 if [ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]; then . "${HOME}/.nix-profile/etc/profile.d/nix.sh"; fi # added by Nix installer
 
