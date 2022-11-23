@@ -175,6 +175,7 @@ for_window [title="feh"] floating enable
 for_window [window_role="task_dialog"] floating enable
 for_window [title="Open File"] floating enable
 for_window [title="Open Files"] floating enable
+for_window [title="SpeedCrunch"] floating enable
 floating_maximum_size 1200 x 900
 
 # assign program to workspace
