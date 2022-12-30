@@ -53,7 +53,9 @@ export PATH="${HOME}/bin:${HOME}/.cargo/bin:${PATH}:${HOME}/.local/bin"
 # add golang
 export PATH="${PATH}:${HOME}/go/bin:/usr/lib/go-1.17/bin/"
 # add foundry
-export PATH="${PATH}:/home/pawel/.foundry/bin"
+export PATH="${PATH}:${HOME}/.foundry/bin"
+# add homebrew
+export PATH="${PATH}:/opt/homebrew/bin"
 
 # enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
@@ -64,3 +66,6 @@ fi
 
 if [ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]; then . "${HOME}/.nix-profile/etc/profile.d/nix.sh"; fi # added by Nix installer
 
+
+# Created by `pipx`
+export PATH="$PATH:$HOME/Library/Python/3.9/bin"
