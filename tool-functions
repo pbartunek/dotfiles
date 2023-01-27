@@ -6,15 +6,17 @@ BLUE="\033[1;36m"
 YELLOW="\033[1;33m"
 RESET="\033[0m"
 
-HTTPX_PORTS="80,443,2375,2376,3000,5000,5001,5672,7001,7002,7443,7070,7777,8000,8001,8002,8004,8080,8081,8089,8181,8282,8443,8880,8089,8888,8889,8983,9000,9001,9090,9091,9200,9443,9999,10000,16000"
-HTTPROBE_PORTS="-p http:2376  -p http:2376  -p http:3000  -p http:5000  -p https:5001  -p http:5672  -p http:7001  -p https:7001 \
-    -p http:7002  -p https:7002  -p https:7443  -p http:7070 -p https:7070 -p http:7777  -p http:8000  -p http:8001  -p http:8002 -p http 8004 -p http:8080  -p http:8081  -p http:8089 \
-    -p http:8181  -p http:8282  -p https:8443  -p http:8880  -p http:8888  -p http:8889  -p http:8983 -p http:9000  -p http:9001  -p http:9090 \
-    -p http:9091  -p http:9200  -p https:9443  -p http:9999  -p http:10000  -p http:16000"
+HTTPX_PORTS="80,443,2375,2376,3000,5000,5001,5672,7001,7002,7443,7070,7777,8000,8001,8002,8004,8080,8081,8089,8181,8282,8443,8880,8089,8888,8889,8983,9000,9001,9090,9091,9200,9443,9999,10000,10443,16000"
+
+HTTPROBE_PORTS="-p http:80 -p https:443 -p http:2375 -p http:2376  -p http:2376  -p http:3000  -p http:5000  -p https:5001  \
+    -p http:5672 -p http:7001  -p https:7001 -p http:7002  -p https:7002 -p https:7443 -p http:7070   -p https:7070 -p http:7777 \
+    -p http:8000 -p http:8001  -p http:8002  -p http 8004  -p http:8080  -p http:8081  -p http:8089 \
+    -p http:8181 -p http:8282  -p https:8443 -p http:8880  -p http:8888  -p http:8889  -p http:8983   -p http:9000  -p http:9001 \
+    -p http:9090 -p http:9091  -p http:9200  -p https:9443 -p http:9999  -p http:10000 -p https:10443 -p http:16000"
 
 # gobuster
 function gbstr() {
-  gobuster dir -e -k -l -s 200,204,307,500,501,502 --wildcard "$@" | tee -a gobuster.log
+  gobuster dir -e -k -s 200,204,307,500,501,502 -b "" --no-error "$@" | tee -a gobuster.log
 }
 
 compdef '_gbstr' gbstr
@@ -99,7 +101,7 @@ function nmap-services() {
 
 # gau - filtered output
 function gau-filtered() {
-  command gau -subs $1 | grep -v -E -i '(.jpg)|(.gif)|(.svg)|(.png)|(.js)|(.woff)|(.css)|(.ico)|(.ttf)|(.eof)|(.eot)|(.otf)' | tee -a "${1}.gau"
+  command gau --subs --blacklist jpg,gif,svg,png,js,woff,css,ico,ttf,eof,eot,otf $1 | tee -a "${1},gau"
 }
 
 #
@@ -219,7 +221,7 @@ function web-screenshots() {
   command aquatone \
     -ports xlarge \
     -threads 20 \
-    -scan-timeout 300 \
+    -scan-timeout 1000 \
     -http-timeout 10000 \
     -out ${SCREENSHOTS_DIR}
 }
@@ -238,8 +240,14 @@ function nuclei-checks() {
     -t exposed-tokens \
     -t technologies \
     -t vulnerabilities \
+    -t exposures \
+    -t miscellaneous \
+    -t misconfiguration \
     -t takeovers \
-    -t custom \
+    -et miscellaneous/missing-csp.yaml \
+    -et miscellaneous/missing-hsts.yaml \
+    -et miscellaneous/missing-x-frame-options.yaml \
+    -et misconfiguration/http-missing-security-headers.yaml \
     -timeout 10 \
     -stats \
     -rl 100 \
@@ -255,7 +263,6 @@ function nuclei-checks-internal() {
   command nuclei -ut
   command nuclei \
     -c 30 \
-    -t cves \
     -t default-logins \
     -t exposed-panels \
     -t exposed-tokens \
@@ -264,18 +271,15 @@ function nuclei-checks-internal() {
     -t exposures \
     -t miscellaneous \
     -t misconfiguration \
-    -t workflows \
-    -t custom \
     -et miscellaneous/missing-csp.yaml \
     -et miscellaneous/missing-hsts.yaml \
     -et miscellaneous/missing-x-frame-options.yaml \
+    -et misconfiguration/http-missing-security-headers.yaml \
     -et fuzzing/iis-shortname.yaml \
     -timeout 10 \
     -stats \
     -rl 100 \
     -o ${WEB_DIR}/nuclei.log
-
-    cat ${WEB_DIR}/nuclei.log | cut -d" " -f3-  | sort -u | sponge ${WEB_DIR}/nuclei.log
 }
 
 function dir-bruteforce() {
@@ -346,24 +350,15 @@ function recon-passive() {
   cat ${SUBDOMAINS_DIR}/subdomains-resolved.txt | enum-wayback-urls
 }
 
-function recon-internal() {
-  setup-dirs
-
-  check-http-internal
-  cat ${WEB_DIR}/http-services.txt | web-screenshots
-  cat ${WEB_DIR}/http-services.txt | nuclei-checks-internal
-  gospider -S ${WEB_DIR}/http-services.txt -o ${WEB_DIR}/spider-out -d 5
-  dir-bruteforce
-}
 
 function recon-ip() {
   setup-dirs
   input=$(tee)
 
   echo $input | hakrevdns > ${SUBDOMAINS_DIR}/rev-dns.txt
-  echo $input | check-http-internal
+  echo $input | check-http
   cat ${WEB_DIR}/http-services.txt | web-screenshots
-  cat ${WEB_DIR}/http-services.txt | nuclei-checks-internal
+  cat ${WEB_DIR}/http-services.txt | nuclei-checks
   gospider -S ${WEB_DIR}/http-services.txt -o ${WEB_DIR}/spider-out -d 5
   dir-bruteforce
 }
@@ -381,5 +376,6 @@ function recon-single-domain() {
   gospider -S ${WEB_DIR}/http-services.txt -o ${WEB_DIR}/spider-out -d 5
   dir-bruteforce
 }
+
 
 

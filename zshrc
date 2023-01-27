@@ -54,8 +54,6 @@ export PATH="${HOME}/bin:${HOME}/.cargo/bin:${PATH}:${HOME}/.local/bin"
 export PATH="${PATH}:${HOME}/go/bin:/usr/lib/go-1.17/bin/"
 # add foundry
 export PATH="${PATH}:${HOME}/.foundry/bin"
-# add homebrew
-export PATH="${PATH}:/opt/homebrew/bin"
 
 # enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
@@ -67,9 +65,7 @@ fi
 if [ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]; then . "${HOME}/.nix-profile/etc/profile.d/nix.sh"; fi # added by Nix installer
 
 
-# Created by `pipx`
-export PATH="$PATH:$HOME/Library/Python/3.9/bin"
-# nvm
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+source $HOME/osmedeus-base/token/osm-default.rc
