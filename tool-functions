@@ -14,7 +14,7 @@ HTTPROBE_PORTS="-p http:80 -p https:443 -p http:2375 -p http:2376  -p http:2376 
 
 # ffuf
 function ffuf() {
-  command ffuf -ic -v -c -ac -fc 301,302 -rate 100 -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0" "$@" | tee -a ffuf.out
+  command ffuf -ic -v -c -ac -fc 301,302 -rate 100 -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0" "$@" | tee -a ffuf.log
 }
 
 # meg
