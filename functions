@@ -286,13 +286,6 @@ function test-url() {
   done
 }
 
-function getJs() {
-  while read -r url; do
-    echo "Downloading JS files from ${url}"
-    for f in `getJS --url $url --complete `; do curl --create-dirs --silent -O $f; done
-  done
-}
-
 function h() {
   history | grep --color $1
 }
@@ -301,10 +294,17 @@ function sort-ip() {
   sort -n -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4
 }
 
-function external-ip() {
+function show-ip() {
+  json=$(curl -s ipinfo.io | jq)
+  echo $json
+
+  # log IP, time and date
   timestamp=$(date +'%Y-%m-%d %T')
   filename="external-ip.txt"
-  ip=$(curl -s  http://showip.net)
-  echo $ip
+  ip=$(echo $json | jq -r .ip)
   echo "${timestamp} |\u001b[32m ${ip} \u001b[0m" >> $filename
+}
+
+function check-ip() {
+  curl -s ipinfo.io/$1 | jq
 }
