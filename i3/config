@@ -111,6 +111,18 @@ bindsym $mod+Shift+8 move container to workspace 8
 bindsym $mod+Shift+9 move container to workspace 9
 bindsym $mod+Shift+0 move container to workspace 10
 
+# assign workspaces to displays
+workspace 1 output DP-2
+workspace 2 output DP-2
+workspace 3 output DP-2
+workspace 4 output DP-2
+workspace 5 output DP-2
+workspace 6 output eDP-1
+workspace 7 output eDP-1
+workspace 8 output eDP-1
+workspace 8 output eDP-1
+workspace 10 output eDP-1
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -150,15 +162,18 @@ bar {
         status_command i3status
 }
 
-# vmware
-exec vmware-user-suid-wrapper
-
-# network manager
+# applets
 exec nm-applet
+exec volumeicon
+exec blueman-applet
 
 # bind Printscreen
 bindsym Print exec "flameshot gui"
 bindsym $mod+p exec "flameshot gui"
+
+# Handle backlight.
+bindsym XF86MonBrightnessUp exec brightnessctl s 5%+
+bindsym XF86MonBrightnessDown exec brightnessctl s 5%-
 
 # Rofi
 bindsym $mod+space exec "rofi -combi-modi run,drun,window -show combi -modi combi
@@ -166,6 +181,7 @@ bindsym $mod+space exec "rofi -combi-modi run,drun,window -show combi -modi comb
 # switch focus
 bindsym $mod+Tab focus right
 bindsym $mod+Shift+Tab focus left
+focus_wrapping workspace
 
 # program specific settings
 for_window [class="Thunar"] floating enable
