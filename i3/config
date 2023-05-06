@@ -166,6 +166,7 @@ bar {
 exec nm-applet
 exec volumeicon
 exec blueman-applet
+exec xfce4-power-manager
 
 # bind Printscreen
 bindsym Print exec "flameshot gui"
