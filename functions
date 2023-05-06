@@ -233,6 +233,7 @@ function notes() {
     cd ${HOME}/files/notes;
     set-window-title notes
 
+    git pull
     screen -S notes -t server -d -m ./web.sh
     sleep 1
     screen -X screen -t vim vim files
