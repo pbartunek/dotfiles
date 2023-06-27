@@ -8,7 +8,7 @@ HTTPX_PORTS="80,443,2375,2376,3000,5000,5001,5672,7001,7002,7443,7070,7777,8000,
 
 # ffuf
 function ffuf() {
-  command ffuf -ic -v -c -ac -fc 301,302 -rate 100 -t 5 -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0" -replay-proxy http://127.0.0.1:8080 "$@" | tee -a ffuf.log
+  command ffuf -ic -v -c -ac -fc 301,302 -rate 100 -t 5 -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0" -replay-proxy http://127.0.0.1:8080 -t 20 "$@" | tee -a ffuf.log
 }
 
 # gf autocompletion
@@ -32,11 +32,11 @@ function check-http {
 }
 
 function check-paths {
-  httpx -silent -path paths.txt -title -ip -status-code -t 10 "$@"
+  httpx -silent -path paths.txt -title -ip -status-code -t 10 -fc 404 "$@"
 }
 
 function check-paths-follow {
-  httpx -silent -path paths.txt -title -ip -status-code -t 10 -fr -max-redirects 3 "$@"
+  httpx -silent -path paths.txt -title -ip -status-code -t 10 -fc 404 -fr -max-redirects 3"$@"
 }
 
 # nuclei autocompletion
