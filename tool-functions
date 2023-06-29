@@ -11,16 +11,10 @@ function ffuf() {
   command ffuf -ic -v -c -ac -fc 301,302 -rate 100 -t 5 -H "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:88.0) Gecko/20100101 Firefox/88.0" -replay-proxy http://127.0.0.1:8080 -t 20 "$@" | tee -a ffuf.log
 }
 
-# gf autocompletion
-compdef _gf gf
-function _gf {
-    _arguments "1: :($(gf -list))"
-}
-
 # httpx
 # discover common web ports, grab page title, status, content type, web server,
 # ip log to file
-function check-http {
+function check-http-common-ports {
   httpx -follow-host-redirects \
     -status-code \
     -title \
@@ -31,16 +25,23 @@ function check-http {
     -ports ${=HTTPX_PORTS} | tee -a httpx.log
 }
 
+function check-http {
+  httpx -follow-host-redirects \
+    -status-code \
+    -title \
+    -content-type \
+    -web-server \
+    -ip \
+    -silent | tee -a httpx.log
+}
+
 function check-paths {
-  httpx -silent -path paths.txt -title -ip -status-code -t 10 -fc 404 "$@"
+  httpx -silent -path paths.txt -title -ip -status-code -t 5 -fc 404 "$@"
 }
 
 function check-paths-follow {
-  httpx -silent -path paths.txt -title -ip -status-code -t 10 -fc 404 -fr -max-redirects 3"$@"
+  httpx -silent -path paths.txt -title -ip -status-code -t 5 -fc 404 -fr -max-redirects 3 "$@"
 }
-
-# nuclei autocompletion
-compdef '_files -/ -W ~/nuclei-templates/' nuclei
 
 # nmap scan services
 function nmap-services() {
@@ -53,4 +54,16 @@ function nmap-services() {
 function gau-filtered() {
   command gau --subs --blacklist jpg,gif,svg,png,js,woff,css,ico,ttf,eof,eot,otf $1 | tee -a "${1},gau"
 }
+
+# autocompletion functions
+
+# gf autocompletion
+compdef _gf gf
+function _gf {
+    _arguments "1: :($(gf -list))"
+}
+
+# nuclei autocompletion
+compdef '_files -/ -W ~/nuclei-templates/' nuclei
+
 
