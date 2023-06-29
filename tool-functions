@@ -36,11 +36,11 @@ function check-http {
 }
 
 function check-paths {
-  httpx -silent -path paths.txt -title -ip -status-code -t 5 -fc 404 "$@"
+  httpx -silent -path paths.txt -title -ip -status-code -t 10 -fc 404 "$@"
 }
 
 function check-paths-follow {
-  httpx -silent -path paths.txt -title -ip -status-code -t 5 -fc 404 -fr -max-redirects 3 "$@"
+  httpx -silent -path paths.txt -title -ip -status-code -t 10 -fc 404 -fr -max-redirects 3 "$@"
 }
 
 # nmap scan services
