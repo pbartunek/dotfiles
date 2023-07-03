@@ -52,7 +52,7 @@ function nmap-services() {
 
 # gau - filtered output
 function gau-filtered() {
-  command gau --subs --blacklist jpg,gif,svg,png,js,woff,css,ico,ttf,eof,eot,otf $1 | tee -a "${1},gau"
+  command gau --blacklist jpg,gif,svg,png,js,woff,css,ico,ttf,eof,eot,otf $1 | tee -a "${1}.gau"
 }
 
 # autocompletion functions
