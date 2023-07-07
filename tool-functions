@@ -31,7 +31,7 @@ function check-http {
     -content-type \
     -web-server \
     -ip \
-    -silent | tee -a httpx.log
+    -silent "$@" | tee -a httpx.log
 }
 
 function check-http-follow {
@@ -41,7 +41,7 @@ function check-http-follow {
     -content-type \
     -web-server \
     -ip \
-    -silent | tee -a httpx.log
+    -silent "$@" | tee -a httpx.log
 }
 
 function check-paths {
