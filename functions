@@ -81,8 +81,8 @@ audit() {
   _init-dirs-audit $project_dir
   cd $project_dir
   _init-files-audit $project_dir
-
   set-window-title "Audit: ${project}"
+
   code ${project_dir}/src
   screen -S ${project} -t vim vim notes.md
 }
@@ -107,16 +107,15 @@ webtest() {
   _init-dirs $project_dir
   cd $project_dir
   _init-files $project_dir
+  set-window-title "$project"
 
-  #firefox-esr 2> /dev/null &
-  if [[ -f ${project_dir}/project.burp || ! -f ${HOME}/files/tools/config-files/burp_project.json ]]; then
+  if [[ -f ${project_dir}/project.burp ]]; then
     echo "burp project exists"
     BurpSuitePro \
       --project-file=${project_dir}/project.burp 2> /dev/null &
   else
     echo "burp project doesn't exist"
     BurpSuitePro \
-      --config-file=${HOME}/files/tools/config-files/burp_project.json \
       --project-file=${project_dir}/project.burp 2> /dev/null &
   fi
 
@@ -139,9 +138,11 @@ work() {
     _init-dirs $project_dir
     cd $project_dir
     _init-files "$project_dir"
+    set-window-title "$project"
 
     screen -S ${project} -t vim vim notes.md
   fi
+
 }
 compdef '_files -/ -W ~/work' work
 
