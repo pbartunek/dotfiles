@@ -111,11 +111,11 @@ webtest() {
 
   if [[ -f ${project_dir}/project.burp ]]; then
     echo "burp project exists"
-    BurpSuitePro \
+    ~/BurpSuitePro/BurpSuitePro \
       --project-file=${project_dir}/project.burp 2> /dev/null &
   else
     echo "burp project doesn't exist"
-    BurpSuitePro \
+    ~/BurpSuitePro/BurpSuitePro \
       --project-file=${project_dir}/project.burp 2> /dev/null &
   fi
 
