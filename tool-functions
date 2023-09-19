@@ -24,6 +24,7 @@ function check-http-common-ports {
     -silent \
     -rl 40 \
     -timeout 5 \
+    -stats \
     -ports ${=HTTPX_PORTS} | tee -a httpx.log
 }
 
@@ -36,6 +37,7 @@ function check-http {
     -t 10 \
     -rl 40 \
     -timeout 5 \
+    -stats \
     -silent "$@" | tee -a httpx.log
 }
 
@@ -49,6 +51,7 @@ function check-http-follow {
     -t 10 \
     -rl 40 \
     -timeout 5 \
+    -stats \
     -silent "$@" | tee -a httpx.log
 }
 
