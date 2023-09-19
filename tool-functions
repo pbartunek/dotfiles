@@ -22,6 +22,8 @@ function check-http-common-ports {
     -web-server \
     -ip \
     -silent \
+    -rl 40 \
+    -timeout 5 \
     -ports ${=HTTPX_PORTS} | tee -a httpx.log
 }
 
@@ -32,6 +34,8 @@ function check-http {
     -web-server \
     -ip \
     -t 10 \
+    -rl 40 \
+    -timeout 5 \
     -silent "$@" | tee -a httpx.log
 }
 
@@ -43,15 +47,17 @@ function check-http-follow {
     -web-server \
     -ip \
     -t 10 \
+    -rl 40 \
+    -timeout 5 \
     -silent "$@" | tee -a httpx.log
 }
 
 function check-paths {
-  httpx -silent -path paths.txt -title -ip -status-code -t 10 -fc 404 "$@"
+  httpx -silent -path paths.txt -title -ip -status-code -t 10 -fc 404 -rl 40 "$@"
 }
 
 function check-paths-follow {
-  httpx -silent -path paths.txt -title -ip -status-code -t 10 -fc 404 -fr -max-redirects 3 "$@"
+  httpx -silent -path paths.txt -title -ip -status-code -t 10 -fc 404 -rl 40 -fr -max-redirects 3 "$@"
 }
 
 # nmap scan services
