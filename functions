@@ -194,23 +194,6 @@ serv-auth() {
   fi
 }
 
-# convert IP address to decimal
-ip2dec() {
-  IFS=.
-  read -r a b c d <<< "$1"
-  echo $(( (a*256**3) + (b*256**2) + (c*256) + (d) ))
-}
-
-# formal XML
-format-xml() {
-  if [ -z "$1" ]; then
-    echo "Usage: $0 file.xml"
-    return
-  fi
-
-  cat $1 | python -c 'import sys;import xml.dom.minidom;s=sys.stdin.read();print xml.dom.minidom.parseString(s).toprettyxml()'
-}
-
 # format text file with ip addresses and network masks,
 # generate list of IP addresses from IP ranges
 format-scope() {
@@ -280,20 +263,20 @@ function mkcd {
   mkdir -p $1 && cd $1
 }
 
-# Read URL(s) from STDIN and sends HEAD request with curl, returns URL and status code
-function test-url() {
-  while read -r url; do
-    echo -en "$url\t";
-    curl -s --max-time 2 -k -I $url | head -n 1 | cut -d" " -f2-
-  done
-}
-
 function h() {
   history | grep --color $1
 }
 
 function sort-ip() {
   sort -n -t . -k 1,1 -k 2,2 -k 3,3 -k 4,4
+}
+
+# Read URL(s) from STDIN and sends HEAD request with curl, returns URL and status code
+function test-url() {
+  while read -r url; do
+    echo -en "$url\t";
+    curl -s --max-time 2 -k -I $url | head -n 1 | cut -d" " -f2-
+  done
 }
 
 function show-ip() {
