@@ -17,7 +17,7 @@ alias gl="git log"
 
 # docker
 alias dcleanup="docker system prune -f"
-alias di="grc docker images"
+alias di="docker images"
 alias dshell="docker run -ti --rm --entrypoint=/bin/bash"
 alias dsh="docker run -ti --rm --entrypoint=/bin/sh"
 
@@ -32,7 +32,7 @@ alias less='less -R'
 alias tree='tree -ah'
 alias df='df -h'
 alias bc='bc -l'
-alias ifconfig="grc /sbin/ifconfig"
+alias ifconfig="/sbin/ifconfig"
 alias poweroff='/sbin/poweroff'
 alias feh='feh -B white --action1 "echo %N | tee -a files.log" --action2 "rm %N"'
 
