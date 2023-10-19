@@ -182,7 +182,7 @@ serv() {
 }
 
 serv-auth() {
-  local pass=$(pwgen -1 -n 20)
+  local pass=$(openssl rand -base64 16 | md5 | head -c16; echo)
   local port=${1:-8090}
 
   echo "\nStarting a web server with basic authentication: test / ${pass}\n"
