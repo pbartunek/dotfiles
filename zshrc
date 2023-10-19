@@ -41,6 +41,7 @@ alias history="history 0"
 
 source ${HOME}/.git-functions
 source ${HOME}/.tool-functions
+source ${HOME}/.text-functions
 source ${HOME}/.functions
 source ${HOME}/.aliases
 

@@ -1,0 +1,33 @@
+# convert IP address to decimal
+ip2dec() {
+  IFS=.
+  read -r a b c d <<< "$1"
+  echo $(( (a*256**3) + (b*256**2) + (c*256) + (d) ))
+}
+
+# formal XML
+format-xml() {
+  if [ -z "$1" ]; then
+    echo "Usage: $0 file.xml"
+    return
+  fi
+
+  cat $1 | python3 -c 'import sys;import xml.dom.minidom;s=sys.stdin.read();print(xml.dom.minidom.parseString(s).toprettyxml())'
+}
+
+b64d() {
+  if [ -z "$1" ]; then
+    base64 -d -
+  else
+    echo $1 | base64 -d 
+  fi
+}
+
+b64e() {
+  if [ -z "$1" ]; then
+    base64 -w0 -
+  else
+    echo $1 | base64 -w0
+  fi
+  echo
+}
