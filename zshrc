@@ -39,22 +39,13 @@ zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
 alias history="history 0"
 
-source ${HOME}/.docker-functions
 source ${HOME}/.git-functions
 source ${HOME}/.tool-functions
 source ${HOME}/.text-functions
 source ${HOME}/.functions
 source ${HOME}/.aliases
-source ${HOME}/.grc.zsh
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
-
-# PATH
-export PATH="${HOME}/bin:${HOME}/.cargo/bin:${PATH}:${HOME}/.local/bin"
-# add golang
-export PATH="${PATH}:${HOME}/go/bin:/usr/lib/go-1.17/bin/"
-# add foundry
-export PATH="${PATH}:${HOME}/.foundry/bin"
 
 # enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
@@ -63,9 +54,7 @@ if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=#999'
 fi
 
-if [ -e "${HOME}/.nix-profile/etc/profile.d/nix.sh" ]; then . "${HOME}/.nix-profile/etc/profile.d/nix.sh"; fi # added by Nix installer
-
-
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
