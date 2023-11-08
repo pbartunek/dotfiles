@@ -293,3 +293,7 @@ function show-ip() {
 function check-ip() {
   curl -s ipinfo.io/$1 | jq
 }
+
+function delete-empty-files() {
+  find . -type f -empty -print -delete
+}
