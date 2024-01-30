@@ -21,11 +21,6 @@ alias di="docker images"
 alias dshell="docker run -ti --rm --entrypoint=/bin/bash"
 alias dsh="docker run -ti --rm --entrypoint=/bin/sh"
 
-# pt tools
-alias nmap-parse='~/files/scripts/nmap-parse.rb'
-alias nmap-scan='~/files/scripts/nmap-scan.sh'
-alias aquatone='aquatone -ports xlarge -threads 20 -http-timeout 2000 '
-
 # other
 alias grep='grep --color=auto -a'
 alias less='less -R'
