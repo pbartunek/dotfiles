@@ -46,6 +46,7 @@ source ${HOME}/.functions
 source ${HOME}/.aliases
 
 export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export SEMGREP_SEND_METRICS=off
 
 # enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
