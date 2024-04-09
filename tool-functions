@@ -86,4 +86,3 @@ function _gf {
 # nuclei autocompletion
 compdef '_files -/ -W ~/nuclei-templates/' nuclei
 
-

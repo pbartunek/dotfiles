@@ -62,33 +62,6 @@ _init-dirs-audit() {
   fi
 }
 
-
-# create project structure for new audit
-audit() {
-  local project=${1%/}
-  local project_dir="${HOME}/work/${project}"
-
-  if [[ "$project" == "" ]]; then
-    echo "You need to specify project name!"
-    echo "Usage: $0 project_name"
-    return
-  elif [[ ! "$project" =~ ^[a-zA-Z0-9_.-]+$ ]]; then
-    echo "Invalid project name, only [a-zA-Z0-9_.-] characters are allowed!"
-    return
-  fi 
-
-  # create initial directories and files
-  _init-dirs-audit $project_dir
-  cd $project_dir
-  _init-files-audit $project_dir
-  set-window-title "Audit: ${project}"
-
-  code ${project_dir}/src
-  screen -S ${project} -t vim vim notes.md
-}
-# autocompletion for audit
-compdef '_files -/ -W ~/work' audit
-
 # create project structure, start burp and web browser
 webtest() {
   local project=${1%/}

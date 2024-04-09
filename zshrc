@@ -1,5 +1,4 @@
 # Set up the prompt
-
 autoload -Uz promptinit
 promptinit
 prompt adam1
@@ -33,7 +32,6 @@ zstyle ':completion:*' menu select=long
 zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
 zstyle ':completion:*' use-compctl false
 zstyle ':completion:*' verbose true
-
 zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
 zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
 
@@ -44,9 +42,6 @@ source ${HOME}/.tool-functions
 source ${HOME}/.text-functions
 source ${HOME}/.functions
 source ${HOME}/.aliases
-
-export DOTNET_CLI_TELEMETRY_OPTOUT=1
-export SEMGREP_SEND_METRICS=off
 
 # enable auto-suggestions based on the history
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
@@ -60,3 +55,5 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export PATH="$PATH:$HOME/bin:/opt/homebrew/bin"
+export DOTNET_CLI_TELEMETRY_OPTOUT=1
+export SEMGREP_SEND_METRICS=off
