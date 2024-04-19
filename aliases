@@ -1,11 +1,11 @@
 # cd
-alias "c=cd"
+alias c=cd
 alias ".."="cd .."
 alias "..."="cd ../.."
 alias - -="cd -"
 
 # ls
-alias "ll"="ls -lah"
+alias ll="ls -lAh"
 
 # git
 alias g=git
@@ -22,13 +22,13 @@ alias dshell="docker run -ti --rm --entrypoint=/bin/bash"
 alias dsh="docker run -ti --rm --entrypoint=/bin/sh"
 
 # other
-alias grep='grep --color=auto -a'
-alias less='less -R'
-alias tree='tree -ah'
-alias df='df -h'
-alias bc='bc -l'
+alias grep="grep --color=auto -a"
+alias less="less -R"
+alias tree="tree -ah"
+alias df="df -h"
+alias bc="bc -l"
 alias ifconfig="/sbin/ifconfig"
-alias poweroff='/sbin/poweroff'
-alias feh='feh -B white --action1 "echo %N | tee -a files.log" --action2 "rm %N"'
+alias poweroff="/sbin/poweroff"
+alias feh="feh -B white --action1 "echo %N | tee -a files.log" --action2 "rm %N""
 
 alias semgrep="semgrep --metrics=off"
