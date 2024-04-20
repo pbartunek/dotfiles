@@ -29,6 +29,6 @@ alias df="df -h"
 alias bc="bc -l"
 alias ifconfig="/sbin/ifconfig"
 alias poweroff="/sbin/poweroff"
-alias feh="feh -B white --action1 "echo %N | tee -a files.log" --action2 "rm %N""
+alias feh='feh -B white --action1 "echo %N | tee -a files.log" --action2 "rm %N"'
 
 alias semgrep="semgrep --metrics=off"
